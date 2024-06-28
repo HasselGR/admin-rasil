@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\NominaEmpleadoController;
+use App\Http\Controllers\AsignacionEmpleadoController;
+use App\Http\Controllers\DeduccionEmpleadoController;
+
+
+Route::get('/', function () {
+    return view('main_page.mainpage');
+});
+
+
+Route::get('/main', [MainController::class, 'index']);
+
+// Ruta para la página de creación de asignaciones y deducciones
+Route::get('/nomina-empleados/asignar-horas', [NominaEmpleadoController::class, 'createHoras'])->name('nomina-empleados.create-horas');
+
+
+Route::resource('nomina-empleados', NominaEmpleadoController::class);
+Route::resource('asignaciones-empleados', AsignacionEmpleadoController::class);
+Route::resource('deducciones-empleados', DeduccionEmpleadoController::class);
+
+
+// Nueva ruta para ver asignaciones y deducciones
+Route::get('/nomina-empleados/{nomina_empleado}/horas', [NominaEmpleadoController::class, 'showAsignacionesDeducciones'])->name('nomina-empleados.horas');
+
+
+
+// Ruta para almacenar asignaciones
+Route::post('/asignaciones-empleados/store', [AsignacionEmpleadoController::class, 'store'])->name('asignaciones-empleados.store');
+
+// Ruta para almacenar deducciones
+Route::post('/deducciones-empleados/store', [DeduccionEmpleadoController::class, 'store'])->name('deducciones-empleados.store');
