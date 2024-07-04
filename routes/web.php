@@ -5,7 +5,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\NominaEmpleadoController;
 use App\Http\Controllers\AsignacionEmpleadoController;
 use App\Http\Controllers\DeduccionEmpleadoController;
-
+use App\Http\Controllers\QuincenaController;   
 
 Route::get('/', function () {
     return view('main_page.mainpage');
@@ -26,6 +26,10 @@ Route::resource('deducciones-empleados', DeduccionEmpleadoController::class);
 // Nueva ruta para ver asignaciones y deducciones
 Route::get('/nomina-empleados/{nomina_empleado}/horas', [NominaEmpleadoController::class, 'showAsignacionesDeducciones'])->name('nomina-empleados.horas');
 
+
+//
+Route::post('/quincenas', [QuincenaController::class, 'store'])->name('quincenas.store');
+Route::get('/quincenas', [QuincenaController::class, 'index'])->name('quincenas.index');
 
 
 // Ruta para almacenar asignaciones
