@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\NominaEmpleado;
 use App\Models\AsignacionEmpleado;
 use App\Models\DeduccionEmpleado;
-
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 
 class NominaEmpleadoController extends Controller
@@ -14,6 +14,38 @@ class NominaEmpleadoController extends Controller
     {
         $nominaEmpleados = NominaEmpleado::all();
         return view('nomina_empleados.index', compact('nominaEmpleados'));
+    }
+
+    public function getEmpleados(Request $request)
+    {
+        if ($request->ajax()) {
+            $empleados = NominaEmpleado::select([
+                'id_empleado',
+                'nombre_empleado',
+                'cedula_identidad',
+                'cod_contrato',
+                'salario_gobierno',
+                'salario_empresa'
+            ]);
+            
+            return DataTables::of($empleados)
+                ->addColumn('acciones', function ($empleado) {
+                    return '
+                        <a class="btn btn-info" href="'.route('nomina-empleados.show', $empleado->id_empleado).'">Mostrar</a>
+                        <a class="btn btn-primary" href="'.route('nomina-empleados.edit', $empleado->id_empleado).'">Editar</a>
+                        <a class="btn btn-warning" href="'.route('nomina-empleados.horas', $empleado->id_empleado).'">Ver Asignaciones y Deducciones</a>
+                        <form action="'.route('nomina-empleados.destroy', $empleado->id_empleado).'" method="POST" style="display:inline-block;">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                
+                ->make(true);
+        }
+
+        return abort(404);
     }
 
     public function create()
