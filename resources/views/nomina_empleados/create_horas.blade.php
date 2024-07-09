@@ -90,7 +90,10 @@
 
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-
+    <div class="w-50">
+        <label for="total_pagar">Total A Pagar</label>
+        <input type="number" class="form-control" name="total_pagar" id="total_pagar" required readonly>
+    </div>
 
     <!-- Selector de Quincena -->
     <div class="form-group">

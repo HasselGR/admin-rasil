@@ -5,6 +5,22 @@ $(document).ready(function() {
     loadQuincenas();
     let salario = 0
 
+
+    $('#id_quincena').on("change", function() {
+        var selectedOption = $(this).find(':selected');
+        var fechaInicio = selectedOption.data('fecha-inicio');
+        console.log("🚀 ~ $ ~ fechaInicio:", fechaInicio)
+        var fechaFinal = selectedOption.data('fecha-final');
+        console.log("🚀 ~ $ ~ fechaFinal:", fechaFinal)
+
+        if (fechaInicio && fechaFinal) {
+            var numeroDeLunes = calcularLunes(fechaInicio, fechaFinal);
+            console.log('Número de lunes:', numeroDeLunes);
+            $('#numero_lunes').val(numeroDeLunes);
+        }
+    });
+
+
     $('#id_empleado').change(function() {
         salario = $(this).find(':selected').data('salario');
         $('#salario_empresa').val(salario);
@@ -43,22 +59,28 @@ $(document).ready(function() {
 
 function loadQuincenas() {
     $.ajax({
-        url: '/quincenas', // Puedes usar la ruta directamente
+        url: '/quincenas',
         method: 'GET',
         success: function(response) {
             var quincenaSelect = $('#id_quincena');
             quincenaSelect.empty(); // Limpiar el selector
 
             response.forEach(function(quincena) {
-                quincenaSelect.append(new Option(quincena.descripcion + ' (' + quincena.fecha_inicio + ' - ' + quincena.fecha_final + ')', quincena.id_quincena));
+                var option = new Option(
+                    `${quincena.descripcion} (${quincena.fecha_inicio} - ${quincena.fecha_final})`,
+                    quincena.id_quincena
+                );
+                $(option).attr('data-fecha-inicio', quincena.fecha_inicio);
+                $(option).attr('data-fecha-final', quincena.fecha_final);
+                quincenaSelect.append(option);
             });
         },
         error: function() {
             alert('Hubo un error al cargar las quincenas.');
         }
     });
-
 }
+
 
 function calcularTotalDevengado(salario) { // Funciona
     var diasTrabajados = parseFloat($('#dias_trabajados').val() * salario/30) || 0;
@@ -78,6 +100,7 @@ function calcularTotalDevengado(salario) { // Funciona
 
     var totalDevengado =  diasTrabajados + diasDescanso + horasExtraDiurnas + horasExtraNocturnas + bonoNocturno + clt + diaFeriadoTrabajado; 
     $('#total_devengado').val(totalDevengado.toFixed(2));
+    $('#total_pagar').val(parseFloat(totalDevengado - $('#total_deducciones').val() ).toFixed(2));
 }
 
 
@@ -104,4 +127,22 @@ function calcularTotalDeducido(salario) {
     var totalDeducido =  SSO + paroForzoso + leyPolitica + sindicato + descuentoFaltas + descuentoPrestamos;
     console.log(totalDeducido) 
     $('#total_deducciones').val(totalDeducido.toFixed(2));
+    $('#total_pagar').val(parseFloat( $('#total_devengado').val() - totalDeducido ).toFixed(2));
+}
+
+
+function calcularLunes(fechaInicio, fechaFinal) {
+    var startDate = new Date(fechaInicio);
+    var endDate = new Date(fechaFinal);
+    var count = 0;
+
+    while (startDate <= endDate) { //al colocarlo menor incluiria el lunes
+        if (startDate.getDay() === 1) { // 1 representa lunes
+            count++;
+        }
+        startDate.setDate(startDate.getDate() + 1);
+    }
+    $('#s_s_o, #paro_forzoso').val(count) 
+
+    return count;
 }

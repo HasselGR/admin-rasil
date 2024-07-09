@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
+    <table class="table table-bordered w-100" id="empleados-table">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -26,34 +26,22 @@
                 <th width="280px">Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach ($nominaEmpleados as $nominaEmpleado)
-            <tr>
-                <td>{{ $nominaEmpleado->nombre_empleado }}</td>
-                <td>{{ $nominaEmpleado->cedula_identidad }}</td>
-                <td>{{ $nominaEmpleado->cod_contrato }}</td>
-                <td>{{ $nominaEmpleado->salario_gobierno }}</td>
-                <td>{{ $nominaEmpleado->salario_empresa }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('nomina-empleados.show', $nominaEmpleado->id_empleado) }}">Mostrar</a>
-                    <a class="btn btn-primary" href="{{ route('nomina-empleados.edit', $nominaEmpleado->id_empleado) }}">Editar</a>
-                    <a class="btn btn-warning" href="{{ route('nomina-empleados.horas', $nominaEmpleado->id_empleado) }}">Ver Asignaciones y Deducciones</a>
-                    <form action="{{ route('nomina-empleados.destroy', $nominaEmpleado->id_empleado) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
     </table>
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 @stop
 
 @section('js')
-    <script> console.log('Page loaded.'); </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
+    <script src="{{ asset('js/index_nomina.js') }}"></script>
 @stop

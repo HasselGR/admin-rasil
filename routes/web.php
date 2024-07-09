@@ -16,11 +16,20 @@ Route::get('/main', [MainController::class, 'index']);
 
 // Ruta para la página de creación de asignaciones y deducciones
 Route::get('/nomina-empleados/asignar-horas', [NominaEmpleadoController::class, 'createHoras'])->name('nomina-empleados.create-horas');
+Route::get('nomina-empleados/data', [NominaEmpleadoController::class, 'getEmpleados'])->name('nomina_empleados.data');
 
 
 Route::resource('nomina-empleados', NominaEmpleadoController::class);
+
+
+
 Route::resource('asignaciones-empleados', AsignacionEmpleadoController::class);
 Route::resource('deducciones-empleados', DeduccionEmpleadoController::class);
+
+//Tabla de empleados
+
+
+
 
 
 // Nueva ruta para ver asignaciones y deducciones
