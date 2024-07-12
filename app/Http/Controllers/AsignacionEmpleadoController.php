@@ -26,6 +26,7 @@ class AsignacionEmpleadoController extends Controller
     {
         $request->validate([
             'id_empleado' => 'required|exists:nomina_empleados,id_empleado',
+            'id_quincena' => 'required|exists:quincenas,id_quincena',
             'dias_trabajados' => 'required|integer',
             'dias_descanso' => 'required|integer',
             'horas_extra_diurnas' => 'required|integer',
@@ -34,12 +35,6 @@ class AsignacionEmpleadoController extends Controller
             'clt' => 'required|integer',
             'dia_feriado_trabajado' => 'required|integer',
             'total_devengado' => 'required|numeric',
-        ]);
-
-        AsignacionEmpleado::create($request->all());
-
-        $request->validate([
-            'id_empleado' => 'required|exists:nomina_empleados,id_empleado',
             's_s_o' => 'required|numeric',
             'paro_forzoso' => 'required|numeric',
             'ley_politica_habit' => 'required|numeric',
@@ -49,9 +44,9 @@ class AsignacionEmpleadoController extends Controller
             'total_deducciones' => 'required|numeric',
         ]);
 
+        AsignacionEmpleado::create($request->all());
         DeduccionEmpleado::create($request->all());
-
-
+    
         return redirect()->route('nomina-empleados.index')->with('success', 'Asignación creada con éxito');
     }
 

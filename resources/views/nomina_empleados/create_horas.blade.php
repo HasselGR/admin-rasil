@@ -18,24 +18,34 @@
             </select>
         </div>
 
+
+        <!-- Selector de Quincena -->
+        <div class="form-group">
+            <label for="id_quincena">Quincena</label>
+            <select class="form-control" name="id_quincena" id="id_quincena" required>
+                <!-- Opciones de quincena se cargarán aquí -->
+            </select>
+        </div>
+
+        
         <div class="d-flex flex-row justify-content-around">
             <div class="w-25">
                 <h2>Asignaciones</h2>
                 <div class="form-group">
                     <label for="dias_trabajados">Días Trabajados</label>
-                    <input type="number" class="form-control" name="dias_trabajados"  id="dias_trabajados" required>
+                    <input type="number" class="form-control" name="dias_trabajados" id="dias_trabajados" required>
                 </div>
                 <div class="form-group">
                     <label for="dias_descanso">Días Descanso</label>
-                    <input type="number" class="form-control" name="dias_descanso"  id="dias_descanso"required>
+                    <input type="number" class="form-control" name="dias_descanso" id="dias_descanso" required>
                 </div>
                 <div class="form-group">
                     <label for="horas_extra_diurnas">Horas Extra Diurnas</label>
-                    <input type="number" class="form-control" name="horas_extra_diurnas"  id="horas_extra_diurnas" required>
+                    <input type="number" class="form-control" name="horas_extra_diurnas" id="horas_extra_diurnas" required>
                 </div>
                 <div class="form-group">
                     <label for="horas_extra_nocturnas">Horas Extra Nocturnas</label>
-                    <input type="number" class="form-control" name="horas_extra_nocturnas" id="horas_extra_nocturnas"required>
+                    <input type="number" class="form-control" name="horas_extra_nocturnas" id="horas_extra_nocturnas" required>
                 </div>
                 <div class="form-group">
                     <label for="bono_nocturno">Bono Nocturno</label>
@@ -67,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ley_politica_habit">Ley Política Habitacional</label>
-                    <input type="number" class="form-control" name="ley_politica_habit" id="ley_politica_habit"  required>
+                    <input type="number" class="form-control" name="ley_politica_habit" id="ley_politica_habit" required>
                 </div>
                 <div class="form-group">
                     <label for="sindicato">Sindicato</label>
@@ -88,20 +98,14 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary" id="submit-asig">Guardar</button>
     </form>
     <div class="w-50">
         <label for="total_pagar">Total A Pagar</label>
         <input type="number" class="form-control" name="total_pagar" id="total_pagar" required readonly>
     </div>
 
-    <!-- Selector de Quincena -->
-    <div class="form-group">
-        <label for="id_quincena">Quincena</label>
-        <select class="form-control" name="id_quincena" id="id_quincena" required>
-            <!-- Opciones de quincena se cargarán aquí -->
-        </select>
-    </div>
+
 
     <!-- Botón para abrir el modal -->
     <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#quincenaModal">

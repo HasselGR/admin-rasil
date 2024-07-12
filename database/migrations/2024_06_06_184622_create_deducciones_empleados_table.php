@@ -13,6 +13,7 @@ class CreateDeduccionesEmpleadosTable extends Migration
         Schema::create('deducciones_empleados', function (Blueprint $table) {
             $table->id('id_deduccion');
             $table->foreignId('id_empleado')->constrained('nomina_empleados', 'id_empleado'); // Referencia a 'id_empleado'
+            $table->unsignedBigInteger('id_quincena'); // Agregar la columna id_quincena
             $table->float('s_s_o');
             $table->float('paro_forzoso');
             $table->float('ley_politica_habit');
@@ -21,6 +22,8 @@ class CreateDeduccionesEmpleadosTable extends Migration
             $table->float('descuento_prestamos');
             $table->float('total_deducciones');
             $table->timestamps();
+
+            $table->foreign('id_quincena')->references('id_quincena')->on('quincenas')->onDelete('cascade'); // Agregar la relación de clave foránea
         });
     }
 

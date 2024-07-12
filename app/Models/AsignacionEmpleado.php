@@ -14,6 +14,7 @@ class AsignacionEmpleado extends Model
     protected $fillable = [
         'id_empleado',
         'dias_trabajados',
+        'id_quincena',
         'dias_descanso',
         'horas_extra_diurnas',
         'horas_extra_nocturnas',
@@ -25,5 +26,9 @@ class AsignacionEmpleado extends Model
 
     public function empleado(){
         return $this->belongsTo(NominaEmpleado::class, 'id_empleado');
+    }
+    public function quincena()
+    {
+        return $this->belongsTo(Quincena::class, 'id_quincena');
     }
 }

@@ -14,6 +14,7 @@ class DeduccionEmpleado extends Model
     protected $fillable = [
         'id_empleado',
         's_s_o',
+        'id_quincena',
         'paro_forzoso',
         'ley_politica_habit',
         'sindicato',
@@ -25,5 +26,9 @@ class DeduccionEmpleado extends Model
     public function empleado()
     {
         return $this->belongsTo(NominaEmpleado::class, 'id_empleado');
+    }
+    public function quincena()
+    {
+        return $this->belongsTo(Quincena::class, 'id_quincena');
     }
 }

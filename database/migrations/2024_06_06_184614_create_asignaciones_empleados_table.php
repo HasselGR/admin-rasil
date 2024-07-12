@@ -11,6 +11,7 @@ class CreateAsignacionesEmpleadosTable extends Migration
         Schema::create('asignaciones_empleados', function (Blueprint $table) {
             $table->id('id_asignaciones');
             $table->foreignId('id_empleado')->constrained('nomina_empleados', 'id_empleado'); // Referencia a 'id_empleado'
+            $table->unsignedBigInteger('id_quincena'); // Agregar la columna id_quincena
             $table->integer('dias_trabajados');
             $table->integer('dias_descanso');
             $table->integer('horas_extra_diurnas');
@@ -20,6 +21,8 @@ class CreateAsignacionesEmpleadosTable extends Migration
             $table->integer('dia_feriado_trabajado');
             $table->float('total_devengado');
             $table->timestamps();
+
+            $table->foreign('id_quincena')->references('id_quincena')->on('quincenas')->onDelete('cascade'); // Agregar la relación de clave foránea
         });
     }
 
