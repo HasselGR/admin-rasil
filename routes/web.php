@@ -6,10 +6,20 @@ use App\Http\Controllers\NominaEmpleadoController;
 use App\Http\Controllers\AsignacionEmpleadoController;
 use App\Http\Controllers\DeduccionEmpleadoController;
 use App\Http\Controllers\QuincenaController;   
+use App\Http\Controllers\LibroVentaController;
+use App\Http\Controllers\LibroCompraController;
+
+
 
 Route::get('/', function () {
     return view('main_page.mainpage');
 });
+
+Route::get('/ventas/create', [LibroVentaController::class, 'create'])->name('ventas.create');
+Route::post('/ventas/store', [LibroVentaController::class, 'store'])->name('ventas.store');
+
+Route::get('/compras/create', [LibroCompraController::class, 'create'])->name('compras.create');
+Route::post('/compras/store', [LibroCompraController::class, 'store'])->name('compras.store');
 
 
 Route::get('/main', [MainController::class, 'index']);
