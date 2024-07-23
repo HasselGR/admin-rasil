@@ -5,13 +5,44 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LibroCompra;
 use App\Models\Quincena;
+use Yajra\DataTables\DataTables;
+
 
 class LibroCompraController extends Controller
 {
     public function index()
     {
-        $compras = LibroCompra::all();
-        return view('libro_compra.index', compact('compras'));
+        return view('libro_compra.index');
+    }
+
+    public function data()
+    {
+        $compras = LibroCompra::select([
+            'id_compra',
+            'id_quincena',
+            'fecha_factura',
+            'nro_rif',
+            'prov_razon_social',
+            'nro_factura',
+            'nro_control_factura',
+            'tipo_transaccion',
+            'nro_factura_afectada',
+            'total_compras',
+            'compras_sin_derecho_iva',
+            'descuento_tgif',
+            'base_impo_contribuyente',
+            'alicuota_contribuyente',
+            'impuesto_iva_contribuyente',
+            'base_impo_contribuyente_alic_red',
+            'alicuota_contribuyente_alic_red',
+            'impuesto_iva_contribuyente_alic_red',
+            'iva_retenido',
+            'nro_comprobante',
+            'fecha_comprobante_retencion',
+        ]);
+
+        return DataTables::of($compras)
+            ->make(true);
     }
 
     public function create()
@@ -40,9 +71,6 @@ class LibroCompraController extends Controller
             'base_impo_contribuyente_alic_red' => 'nullable|numeric',
             'alicuota_contribuyente_alic_red' => 'nullable|numeric',
             'impuesto_iva_contribuyente_alic_red' => 'nullable|numeric',
-            'base_impo_no_contribuyente_alic_red' => 'nullable|numeric',
-            'alicuota_no_contribuyente_alic_red' => 'nullable|numeric',
-            'impuesto_iva_no_contribuyente_alic_red' => 'nullable|numeric',
             'iva_retenido' => 'nullable|numeric',
             'nro_comprobante' => 'nullable|integer',
             'fecha_comprobante_retencion' => 'nullable|date',
@@ -50,7 +78,7 @@ class LibroCompraController extends Controller
 
         LibroCompra::create($request->all());
 
-        return redirect()->route('libro_compra.index')->with('success', 'Compra creada con éxito');
+        return redirect()->route('main.mainpage')->with('success', 'Compra creada con éxito');
     }
 
     public function show($id)
@@ -86,9 +114,6 @@ class LibroCompraController extends Controller
             'base_impo_contribuyente_alic_red' => 'nullable|numeric',
             'alicuota_contribuyente_alic_red' => 'nullable|numeric',
             'impuesto_iva_contribuyente_alic_red' => 'nullable|numeric',
-            'base_impo_no_contribuyente_alic_red' => 'nullable|numeric',
-            'alicuota_no_contribuyente_alic_red' => 'nullable|numeric',
-            'impuesto_iva_no_contribuyente_alic_red' => 'nullable|numeric',
             'iva_retenido' => 'nullable|numeric',
             'nro_comprobante' => 'nullable|integer',
             'fecha_comprobante_retencion' => 'nullable|date',

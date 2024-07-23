@@ -32,9 +32,6 @@ class CreateCompraLibroTable extends Migration
             $table->float('base_impo_contribuyente_alic_red');
             $table->float('alicuota_contribuyente_alic_red');
             $table->float('impuesto_iva_contribuyente_alic_red');
-            $table->float('base_impo_no_contribuyente_alic_red');
-            $table->float('alicuota_no_contribuyente_alic_red');
-            $table->float('impuesto_iva_no_contribuyente_alic_red');
             $table->float('iva_retenido');
             $table->integer('nro_comprobante');
             $table->date('fecha_comprobante_retencion');

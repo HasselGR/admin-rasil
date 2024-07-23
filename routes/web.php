@@ -17,12 +17,17 @@ Route::get('/', function () {
 
 Route::get('/ventas/create', [LibroVentaController::class, 'create'])->name('ventas.create');
 Route::post('/ventas/store', [LibroVentaController::class, 'store'])->name('ventas.store');
+Route::get('/ventas/index', [LibroVentaController::class, 'index'])->name('ventas.index');
+Route::get('/ventas/data', [LibroVentaController::class, 'data'])->name('ventas.data');
 
 Route::get('/compras/create', [LibroCompraController::class, 'create'])->name('compras.create');
 Route::post('/compras/store', [LibroCompraController::class, 'store'])->name('compras.store');
+Route::get('/compras/index', [LibroCompraController::class, 'index'])->name('compras.index');
+Route::get('/compras/data', [LibroCompraController::class, 'data'])->name('compras.data');
 
 
-Route::get('/main', [MainController::class, 'index']);
+
+Route::get('/main', [MainController::class, 'index'])->name('main.mainpage');
 
 // Ruta para la página de creación de asignaciones y deducciones
 Route::get('/nomina-empleados/asignar-horas', [NominaEmpleadoController::class, 'createHoras'])->name('nomina-empleados.create-horas');

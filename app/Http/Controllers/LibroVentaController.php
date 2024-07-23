@@ -5,13 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LibroVenta;
 use App\Models\Quincena;
+use Yajra\DataTables\DataTables;
+
 
 class LibroVentaController extends Controller
 {
     public function index()
     {
-        $ventas = LibroVenta::all();
-        return view('libro_venta.index', compact('ventas'));
+        return view('libro_venta.index');
+    }
+
+    public function data()
+    {
+        $ventas = LibroVenta::select([
+            'id_venta',
+            'id_quincena',
+            'fecha_factura',
+            'nro_rif',
+            'prov_razon_social',
+            'nro_factura',
+            'nro_control_factura',
+            'tipo_transaccion',
+            'total_ventas',
+            'base_impo_contribuyente',
+            'alicuota_contribuyente',
+            'impuesto_iva_contribuyente',
+            'base_impo_no_contribuyente',
+            'alicuota_no_contribuyente',
+            'impuesto_iva_no_contribuyente',
+            'iva_retenido',
+            'nro_comprobante',
+            'fecha_comprobante_retencion',
+        ]);
+
+        return DataTables::of($ventas)
+            ->make(true);
     }
 
     public function create()
@@ -44,7 +72,7 @@ class LibroVentaController extends Controller
 
         LibroVenta::create($request->all());
 
-        return redirect()->route('libro_venta.index')->with('success', 'Venta creada con éxito');
+        return redirect()->route('main.mainpage')->with('success', 'Venta creada con éxito');
     }
 
     public function show($id)
