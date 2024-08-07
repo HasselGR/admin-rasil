@@ -8,7 +8,11 @@ use App\Http\Controllers\DeduccionEmpleadoController;
 use App\Http\Controllers\QuincenaController;   
 use App\Http\Controllers\LibroVentaController;
 use App\Http\Controllers\LibroCompraController;
-
+use App\Http\Controllers\IngredientesController;
+use App\Http\Controllers\UnidadMedidaController;
+use App\Http\Controllers\MedidasPlatoController;
+use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\OrdenController;
 
 
 Route::get('/', function () {
@@ -41,7 +45,15 @@ Route::resource('nomina-empleados', NominaEmpleadoController::class);
 Route::resource('asignaciones-empleados', AsignacionEmpleadoController::class);
 Route::resource('deducciones-empleados', DeduccionEmpleadoController::class);
 
-//Tabla de empleados
+//INGREDIENTES, PLATOS, ETCETERA
+
+Route::resource('ingredientes', IngredientesController::class);
+Route::resource('unidad_medida', UnidadMedidaController::class);
+Route::resource('medidas_platos', MedidasPlatoController::class);
+Route::resource('plato', PlatoController::class);
+Route::resource('ordenes', OrdenController::class);
+
+
 
 
 
