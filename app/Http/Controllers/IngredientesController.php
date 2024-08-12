@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingrediente;
+use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
 
 class IngredientesController extends Controller
@@ -14,8 +15,9 @@ class IngredientesController extends Controller
     }
 
     public function create()
-    {
-        return view('ingredientes.create');
+    {   
+        $unidadesMedida = UnidadMedida::all();
+        return view('ingredientes.create', compact('unidadesMedida'));
     }
 
     public function store(Request $request)
@@ -31,14 +33,17 @@ class IngredientesController extends Controller
         return redirect()->route('ingredientes.index')->with('success', 'Ingrediente creado con éxito.');
     }
 
-    public function show(Ingrediente $ingrediente)
+    public function show($id)
     {
+        $ingrediente = Ingrediente::findOrFail($id);
         return view('ingredientes.show', compact('ingrediente'));
     }
 
-    public function edit(Ingrediente $ingrediente)
+    public function edit($id)
     {
-        return view('ingredientes.edit', compact('ingrediente'));
+        $ingrediente = Ingrediente::findOrFail($id);
+        $unidadMedidas = UnidadMedida::all();
+        return view('ingredientes.edit', compact('ingrediente', 'unidadMedidas'));
     }
 
     public function update(Request $request, Ingrediente $ingrediente)

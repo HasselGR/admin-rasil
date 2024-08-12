@@ -3,67 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedidasPlato;
+use App\Models\Plato;
+use App\Models\Ingrediente;
+use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
 
 class MedidasPlatoController extends Controller
 {
     public function index()
     {
-        $medidasPlatos = MedidasPlato::all();
+        $medidasPlatos = MedidasPlato::with(['plato', 'ingrediente', 'unidadMedida'])->get();
         return view('medidas_platos.index', compact('medidasPlatos'));
     }
 
     public function create()
     {
-        return view('medidas_platos.create');
+        $platos = Plato::all();
+        $ingredientes = Ingrediente::all();
+        $unidadesMedida = UnidadMedida::all();
+        return view('medidas_platos.create', compact('platos', 'ingredientes', 'unidadesMedida'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'id_plato' => 'required|integer|exists:plato,id_plato',
-            'id_ingrediente' => 'required|integer|exists:ingredientes,id_ingrediente',
-            'unidad_medida' => 'required|integer|exists:unidad_medida,id_unidad_medida',
-            'nombre_plato' => 'required|string|max:255',
-            'nombre_ingrediente' => 'required|string|max:255',
-            'nombre_unidad' => 'required|string|max:255',
+            'id_plato' => 'required|exists:plato,id_plato',
+            'nombre_plato' => 'required|string',
+            'id_ingrediente' => 'required|exists:ingredientes,id_ingrediente',
+            'nombre_ingrediente' => 'required|string',
+            'unidad_medida' => 'required|exists:unidad_medida,id_unidad_medida',
+            'nombre_unidad' => 'required|string',
+            'cantidad' => 'required|numeric',
         ]);
 
         MedidasPlato::create($request->all());
 
-        return redirect()->route('medidas_platos.index')->with('success', 'Medida de plato creada con éxito.');
+        return redirect()->route('medidas_platos.index')->with('success', 'Medida del plato creada con éxito');
     }
 
-    public function show(MedidasPlato $medidasPlato)
+
+    public function edit(MedidasPlato $medidaPlato)
     {
-        return view('medidas_platos.show', compact('medidasPlato'));
+        $platos = Plato::all();
+        $ingredientes = Ingrediente::all();
+        $unidadesMedida = UnidadMedida::all();
+        return view('medidas_platos.edit', compact('medidaPlato', 'platos', 'ingredientes', 'unidadesMedida'));
     }
 
-    public function edit(MedidasPlato $medidasPlato)
-    {
-        return view('medidas_platos.edit', compact('medidasPlato'));
-    }
-
-    public function update(Request $request, MedidasPlato $medidasPlato)
+    public function update(Request $request, MedidasPlato $medidaPlato)
     {
         $request->validate([
-            'id_plato' => 'required|integer|exists:plato,id_plato',
-            'id_ingrediente' => 'required|integer|exists:ingredientes,id_ingrediente',
-            'unidad_medida' => 'required|integer|exists:unidad_medida,id_unidad_medida',
-            'nombre_plato' => 'required|string|max:255',
-            'nombre_ingrediente' => 'required|string|max:255',
-            'nombre_unidad' => 'required|string|max:255',
+            'id_plato' => 'required|exists:plato,id_plato',
+            'id_ingrediente' => 'required|exists:ingredientes,id_ingrediente',
+            'unidad_medida' => 'required|exists:unidad_medida,id_unidad_medida',
+            'cantidad' => 'required|numeric',
         ]);
 
-        $medidasPlato->update($request->all());
+        $medidaPlato->update($request->all());
 
-        return redirect()->route('medidas_platos.index')->with('success', 'Medida de plato actualizada con éxito.');
+        return redirect()->route('medidas_platos.index')->with('success', 'Medida del plato actualizada con éxito.');
     }
 
-    public function destroy(MedidasPlato $medidasPlato)
+    public function destroy(MedidasPlato $medidaPlato)
     {
-        $medidasPlato->delete();
-
-        return redirect()->route('medidas_platos.index')->with('success', 'Medida de plato eliminada con éxito.');
+        $medidaPlato->delete();
+        return redirect()->route('medidas_platos.index')->with('success', 'Medida del plato eliminada con éxito.');
     }
 }

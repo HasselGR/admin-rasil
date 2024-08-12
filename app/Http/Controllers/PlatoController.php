@@ -31,33 +31,38 @@ class PlatoController extends Controller
         return redirect()->route('plato.index')->with('success', 'Plato creado con éxito.');
     }
 
-    public function show(Plato $plato)
+    public function show($id)
     {
+        $plato = Plato::findOrFail($id);
         return view('plato.show', compact('plato'));
     }
 
-    public function edit(Plato $plato)
+    public function edit($id)
     {
+        $plato = Plato::findOrFail($id);
         return view('plato.edit', compact('plato'));
     }
 
-    public function update(Request $request, Plato $plato)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nombre_plato' => 'required|string|max:255',
             'costo' => 'required|numeric',
-            'descripcion' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
         ]);
 
+        $plato = Plato::findOrFail($id);
         $plato->update($request->all());
 
         return redirect()->route('plato.index')->with('success', 'Plato actualizado con éxito.');
     }
 
-    public function destroy(Plato $plato)
+    public function destroy($id)
     {
+        $plato = Plato::findOrFail($id);
         $plato->delete();
 
         return redirect()->route('plato.index')->with('success', 'Plato eliminado con éxito.');
     }
+
 }
