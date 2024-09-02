@@ -20,6 +20,7 @@ class MedidasPlato extends Model
         'nombre_plato',
         'nombre_ingrediente',
         'nombre_unidad',
+        'cantidad'
     ];
 
     public function plato()

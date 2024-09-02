@@ -328,6 +328,59 @@ return [
             'url' => '/nomina-empleados',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Asignar Horas',
+            'url' => '/nomina-empleados/asignar-horas',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        ['header' => 'Libro de Compra|Venta'],
+        [
+            'text' => 'Ver Compras',
+            'url' => '/compras/index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Ver Ventas',
+            'url' => '/ventas/index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Crear Compra',
+            'url' => '/compras/create',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Crear Venta',
+            'url' => '/ventas/create',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        ['header' => 'Restaurante'],
+        [
+            'text' => 'Ingredientes',
+            'url' => '/ingredientes',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Unidades de Medida',
+            'url' => '/unidad_medida',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Platos',
+            'url' => '/plato',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Ordenes',
+            'url' => '/ordenes',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Medidas Platos',
+            'url' => '/medidas_platos',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

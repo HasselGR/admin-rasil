@@ -13,6 +13,7 @@ use App\Http\Controllers\UnidadMedidaController;
 use App\Http\Controllers\PlatoController;
 use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\MedidasPlatoController;
+use App\Http\Controllers\OrdenDetalleController;
 
 
 Route::get('/', function () {
@@ -50,9 +51,11 @@ Route::resource('deducciones-empleados', DeduccionEmpleadoController::class);
 Route::resource('ingredientes', IngredientesController::class);
 Route::resource('unidad_medida', UnidadMedidaController::class);
 Route::resource('plato', PlatoController::class);
-Route::resource('ordenes', OrdenController::class);
-Route::resource('medidas_platos', MedidasPlatoController::class);
 
+Route::resource('medidas_platos', MedidasPlatoController::class);
+Route::resource('orden', OrdenController::class);
+Route::resource('orden_detalle', OrdenDetalleController::class);
+Route::get('/orden/{id}', [OrdenController::class, 'show'])->name('ordenes.show');
 
 
 

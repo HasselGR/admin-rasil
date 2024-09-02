@@ -9,20 +9,19 @@ class Orden extends Model
 {
     use HasFactory;
 
-    protected $table = 'ordenes';
+    protected $table = 'orden';  // Nombre de la tabla
 
-    protected $primaryKey = 'id_orden';
+    protected $primaryKey = 'id_orden';  // Clave primaria
 
     protected $fillable = [
-        'id_plato',
-        'nombre_plato',
         'fecha',
         'hora',
-        'id_factura',
+        
     ];
 
-    public function plato()
+    // Relación uno a muchos con OrdenDetalle
+    public function detalles()
     {
-        return $this->belongsTo(Plato::class, 'id_plato', 'id_plato');
+        return $this->hasMany(OrdenDetalle::class, 'id_orden', 'id_orden');
     }
 }

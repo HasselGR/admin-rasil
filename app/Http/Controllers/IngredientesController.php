@@ -10,9 +10,11 @@ class IngredientesController extends Controller
 {
     public function index()
     {
-        $ingredientes = Ingrediente::all();
+        $ingredientes = Ingrediente::with('unidadMedida')->get(); // Carga la relación con la tabla unidad_medida
+    
         return view('ingredientes.index', compact('ingredientes'));
     }
+    
 
     public function create()
     {   
