@@ -14,6 +14,8 @@ use App\Http\Controllers\PlatoController;
 use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\MedidasPlatoController;
 use App\Http\Controllers\OrdenDetalleController;
+use App\Http\Controllers\CargamentosController;
+
 
 
 Route::get('/', function () {
@@ -59,7 +61,8 @@ Route::get('/orden/{id}', [OrdenController::class, 'show'])->name('ordenes.show'
 
 
 
-
+//CARGAMENTOS PARA AÑADIR INGREDIENTES
+Route::resource('cargamentos', CargamentosController::class);
 
 
 // Nueva ruta para ver asignaciones y deducciones

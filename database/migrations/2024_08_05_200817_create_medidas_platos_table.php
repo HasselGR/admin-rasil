@@ -15,6 +15,7 @@ class CreateMedidasPlatosTable extends Migration
             $table->unsignedBigInteger('id_ingrediente');
             $table->string('nombre_ingrediente');
             $table->unsignedBigInteger('unidad_medida');
+            $table->unsignedBigInteger('cantidad');
             $table->string('nombre_unidad');
             $table->timestamps();
 
