@@ -14,7 +14,7 @@ class CreateClientesRentaTable extends Migration
             $table->id('id_cliente'); // Usamos 'id_cliente' en lugar de 'id'
             $table->string('nombre_razon_social');
             $table->string('rif');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->string('correo')->unique();
             $table->timestamps();
         });

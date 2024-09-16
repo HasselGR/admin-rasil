@@ -15,6 +15,9 @@ use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\MedidasPlatoController;
 use App\Http\Controllers\OrdenDetalleController;
 use App\Http\Controllers\CargamentosController;
+use App\Http\Controllers\LocalRentaController;
+use App\Http\Controllers\ClienteRentaController;
+use App\Http\Controllers\RentaLocalesController;
 
 
 
@@ -59,6 +62,11 @@ Route::resource('orden', OrdenController::class);
 Route::resource('orden_detalle', OrdenDetalleController::class);
 Route::get('/orden/{id}', [OrdenController::class, 'show'])->name('ordenes.show');
 
+//PARA RENTA DE LOCALES
+
+Route::resource('locales', LocalRentaController::class);
+Route::resource('clientes_renta', ClienteRentaController::class);
+Route::resource('renta_locales', RentaLocalesController::class);
 
 
 //CARGAMENTOS PARA AÑADIR INGREDIENTES
