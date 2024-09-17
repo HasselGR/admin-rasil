@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    <a href="{{ route('ingredientes.create') }}" class="btn btn-primary mb-3">Agregar Ingrediente</a>
     <table class="table table-bordered">
         <thead>
             <tr>

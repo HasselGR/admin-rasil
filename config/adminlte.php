@@ -305,80 +305,92 @@ return [
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
+            // Sidebar items:
+            // Sección de Nómina
+        ['header' => 'Nómina'],
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'Configuración de Empleados'],
-        [
-            'text' => 'Nomina Empleados',
+            'text' => 'Nómina Empleados',
             'url' => '/nomina-empleados',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-users',
         ],
         [
             'text' => 'Asignar Horas',
             'url' => '/nomina-empleados/asignar-horas',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-clock',
         ],
-        ['header' => 'Libro de Compra|Venta'],
+        [
+            'text' => 'Pago de Quincena',
+            'url' => '/nomina-empleados/pago-quincena',
+            'icon' => 'fas fa-fw fa-calendar-alt',
+        ],
+
+        // Sección de Libro de Compra/Venta
+        ['header' => 'Libro de Compra y Venta'],
         [
             'text' => 'Ver Compras',
             'url' => '/compras/index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-book-open',
         ],
         [
             'text' => 'Ver Ventas',
             'url' => '/ventas/index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-book-open',
         ],
         [
             'text' => 'Crear Compra',
             'url' => '/compras/create',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-cart-plus',
         ],
         [
             'text' => 'Crear Venta',
             'url' => '/ventas/create',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-cash-register',
         ],
-        ['header' => 'Restaurante'],
+
+        // Sección de Restaurante/Inventario
+        ['header' => 'Restaurante / Inventario'],
         [
             'text' => 'Ingredientes',
             'url' => '/ingredientes',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-carrot',
         ],
         [
             'text' => 'Unidades de Medida',
             'url' => '/unidad_medida',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-balance-scale',
         ],
         [
             'text' => 'Platos',
             'url' => '/plato',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-utensils',
         ],
         [
-            'text' => 'Ordenes',
-            'url' => '/ordenes',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Órdenes',
+            'url' => '/orden',
+            'icon' => 'fas fa-fw fa-concierge-bell',
         ],
         [
-            'text' => 'Medidas Platos',
+            'text' => 'Medidas de Platos',
             'url' => '/medidas_platos',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-ruler',
+        ],
+
+        // Sección de Renta de Locales
+        ['header' => 'Renta de Locales'],
+        [
+            'text' => 'Locales de Renta',
+            'url' => '/local_renta',
+            'icon' => 'fas fa-fw fa-store',
+        ],
+        [
+            'text' => 'Clientes de Renta',
+            'url' => '/clientes_renta',
+            'icon' => 'fas fa-fw fa-user-tie',
+        ],
+        [
+            'text' => 'Registro de Renta',
+            'url' => '/renta_locales',
+            'icon' => 'fas fa-fw fa-file-contract',
         ],
 
         ['header' => 'account_settings'],

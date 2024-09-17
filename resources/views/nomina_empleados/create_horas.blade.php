@@ -18,6 +18,7 @@
             </select>
         </div>
 
+            <!-- Botón para abrir el modal -->
 
         <!-- Selector de Quincena -->
         <div class="form-group">
@@ -25,6 +26,9 @@
             <select class="form-control" name="id_quincena" id="id_quincena" required>
                 <!-- Opciones de quincena se cargarán aquí -->
             </select>
+            <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#quincenaModal">
+                Crear Quincena
+            </button>
         </div>
 
         
@@ -107,10 +111,7 @@
 
 
 
-    <!-- Botón para abrir el modal -->
-    <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#quincenaModal">
-        Crear Quincena
-    </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="quincenaModal" tabindex="-1" role="dialog" aria-labelledby="quincenaModalLabel" aria-hidden="true">
