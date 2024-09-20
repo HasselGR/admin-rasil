@@ -24,12 +24,15 @@ class LocalRentaController extends Controller
         $request->validate([
             'ubicacion' => 'required',
             'canon' => 'required|numeric',
+            'nombre_local' => 'required|string|max:255',
         ]);
 
         LocalRenta::create($request->all());
 
         return redirect()->route('locales.index')->with('success', 'Local creado con éxito');
     }
+
+    
 
     public function edit($id)
     {
@@ -42,6 +45,7 @@ class LocalRentaController extends Controller
         $request->validate([
             'ubicacion' => 'required',
             'canon' => 'required|numeric',
+            'nombre_local' => 'required|string|max:255',
         ]);
 
         $local = LocalRenta::find($id);

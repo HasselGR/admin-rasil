@@ -379,7 +379,7 @@ return [
         ['header' => 'Renta de Locales'],
         [
             'text' => 'Locales de Renta',
-            'url' => '/local_renta',
+            'url' => '/locales',
             'icon' => 'fas fa-fw fa-store',
         ],
         [

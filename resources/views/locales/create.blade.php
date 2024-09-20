@@ -11,6 +11,10 @@
     <form action="{{ route('locales.store') }}" method="POST">
         @csrf
         <div class="form-group">
+            <label for="nombre_local">Nombre del Local</label>
+            <input type="text" class="form-control" id="nombre_local" name="nombre_local" required>
+        </div>
+        <div class="form-group">
             <label for="ubicacion">Ubicación</label>
             <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
         </div>

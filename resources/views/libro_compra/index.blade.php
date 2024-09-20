@@ -3,34 +3,51 @@
 @section('title', 'Lista de Compras')
 
 @section('content_header')
-    <h1>Lista de Compras</h1>
+    <h1>Libro de Compras</h1>
 @stop
 
 @section('content')
-    <table class="table table-bordered" id="compras-table">
-        <thead>
-            <tr>
-                <th>Fecha de Factura</th>
-                <th>Número de RIF</th>
-                <th>Razón Social del Proveedor</th>
-                <th>Número de Factura</th>
-                <th>Número de Control de Factura</th>
-                <th>Tipo de Transacción</th>
-                <th>Total Compras</th>
-                <th>Compras sin Derecho a Crédito IVA</th>
-                <th>Descuento TGIF</th>
-                <th>Base Imponible Contribuyente</th>
-                <th>Alicuota Contribuyente</th>
-                <th>Impuesto IVA Contribuyente</th>
-                <th>Base Imponible Contribuyente Alic. Red.</th>
-                <th>Alicuota Contribuyente Alic. Red.</th>
-                <th>Impuesto IVA Contribuyente Alic. Red.</th>
-                <th>IVA Retenido</th>
-                <th>Número de Comprobante</th>
-                <th>Fecha Comprobante Retención</th>
-            </tr>
-        </thead>
-    </table>
+
+<a href="{{ route('compras.create') }}" class="btn btn-primary mb-3">Agregar Registro de Libro de Compra</a>
+
+<!-- Selector de Quincena -->
+<div class="mb-3">
+    <label for="quincena-select">Seleccionar Quincena:</label>
+    <select id="quincena-select" class="form-control" style="width: 300px;">
+        <option value="">Seleccione una Quincena</option>
+        @foreach ($quincenas as $quincena)
+            <option value="{{ $quincena->id_quincena }}">{{ $quincena->descripcion }}</option>
+        @endforeach
+    </select>
+</div>
+
+<!-- Botón para generar PDF -->
+<button id="generar-pdf" class="btn btn-success mb-3">Generar Resumen PDF</button>
+
+<table class="table table-bordered" id="compras-table">
+    <thead>
+        <tr>
+            <th>Fecha de Factura</th>
+            <th>Número de RIF</th>
+            <th>Razón Social del Proveedor</th>
+            <th>Número de Factura</th>
+            <th>Número de Control de Factura</th>
+            <th>Tipo de Transacción</th>
+            <th>Total Compras</th>
+            <th>Compras sin Derecho a Crédito IVA</th>
+            <th>Descuento TGIF</th>
+            <th>Base Imponible Contribuyente</th>
+            <th>Alicuota Contribuyente</th>
+            <th>Impuesto IVA Contribuyente</th>
+            <th>Base Imponible Contribuyente Alic. Red.</th>
+            <th>Alicuota Contribuyente Alic. Red.</th>
+            <th>Impuesto IVA Contribuyente Alic. Red.</th>
+            <th>IVA Retenido</th>
+            <th>Número de Comprobante</th>
+            <th>Fecha Comprobante Retención</th>
+        </tr>
+    </thead>
+</table>
 @stop
 
 @section('css')
@@ -78,6 +95,16 @@
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
+            });
+
+            // Acción del botón "Generar PDF"
+            $('#generar-pdf').click(function() {
+                var quincenaId = $('#quincena-select').val();
+                if (quincenaId) {
+                    window.location.href = `/compras/${quincenaId}/resumen-pdf`;
+                } else {
+                    alert('Por favor seleccione una quincena para generar el PDF.');
+                }
             });
         });
     </script>

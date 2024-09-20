@@ -7,6 +7,18 @@
 @stop
 
 @section('content')
+    <a href="{{ route('ventas.create') }}" class="btn btn-primary mb-3">Agregar Registro de Libro de Ventas</a>
+    <div class="mb-3">
+        <label for="quincena-select">Seleccionar Quincena:</label>
+        <select id="quincena-select" class="form-control" style="width: 300px;">
+            <option value="">Seleccione una Quincena</option>
+            @foreach ($quincenas as $quincena)
+                <option value="{{ $quincena->id_quincena }}">{{ $quincena->descripcion }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <button id="generar-pdf" class="btn btn-success mb-3">Generar Resumen PDF</button>
     <table class="table table-bordered" id="ventas-table">
         <thead>
             <tr>
@@ -76,5 +88,13 @@
                 ]
             });
         });
+        $('#generar-pdf').click(function() {
+                var quincenaId = $('#quincena-select').val();
+                if (quincenaId) {
+                    window.location.href = `/ventas/${quincenaId}/resumen-pdf`;
+                } else {
+                    alert('Por favor seleccione una quincena para generar el PDF.');
+                }
+            });
     </script>
 @stop

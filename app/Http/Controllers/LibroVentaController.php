@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\LibroVenta;
 use App\Models\Quincena;
 use Yajra\DataTables\DataTables;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LibroVentaController extends Controller
 {
     public function index()
     {
-        return view('libro_venta.index');
+        $quincenas = Quincena::all();
+        return view('libro_venta.index',['quincenas' => $quincenas]);
     }
 
     public function data()
@@ -47,6 +48,46 @@ class LibroVentaController extends Controller
         $quincenas = Quincena::all();
         return view('libro_venta.venta_create', compact('quincenas'));
     }
+
+    public function generarPdfVentas($quincenaId)
+    {
+        // Obtener la quincena seleccionada
+        $quincena = Quincena::findOrFail($quincenaId);
+    
+        // Obtener todos los registros de ventas de la quincena seleccionada
+        $ventas = LibroVenta::where('id_quincena', $quincenaId)->get();
+    
+        // Cálculos dinámicos
+        $totalBaseImponible16 = $ventas->sum(function ($venta) {
+            return $venta->base_impo_contribuyente + $venta->base_impo_no_contribuyente;
+        });
+        
+        $debitoFiscal16 = $totalBaseImponible16 * 0.16;
+    
+        // Para esta implementación, el 12% y otros campos permanecen en 0
+        $totalDebitosFiscales = $debitoFiscal16; // Para esta prueba, solo con el valor del 16%
+        
+        $retencionesAcumuladas = $ventas->sum('iva_retenido');
+        $ivaRetenidoComprador = 0; // Este valor será 0 por defecto
+        $totalRetenciones = $retencionesAcumuladas + $ivaRetenidoComprador;
+    
+        // Preparar los datos para la vista, incluyendo la quincena
+        $data = [
+            'quincenaDescripcion' => $quincena->descripcion,
+            'fechaInicio' => $quincena->fecha_inicio,
+            'fechaFin' => $quincena->fecha_final,
+            'totalBaseImponible16' => $totalBaseImponible16,
+            'debitoFiscal16' => $debitoFiscal16,
+            'totalDebitosFiscales' => $totalDebitosFiscales,
+            'retencionesAcumuladas' => $retencionesAcumuladas,
+            'ivaRetenidoComprador' => $ivaRetenidoComprador,
+            'totalRetenciones' => $totalRetenciones,
+        ];
+    
+        $pdf = PDF::loadView('libro_venta.resumen_quincena_pdf', $data);
+        return $pdf->download('RESUMEN_QUINCENA_VENTAS'. ' '. $quincena->descripcion.$quincena->fecha_inicio.' '.$quincena->fecha_final.'.pdf');
+    }
+    
 
     public function store(Request $request)
     {

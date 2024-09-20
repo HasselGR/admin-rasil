@@ -29,12 +29,14 @@ Route::get('/ventas/create', [LibroVentaController::class, 'create'])->name('ven
 Route::post('/ventas/store', [LibroVentaController::class, 'store'])->name('ventas.store');
 Route::get('/ventas/index', [LibroVentaController::class, 'index'])->name('ventas.index');
 Route::get('/ventas/data', [LibroVentaController::class, 'data'])->name('ventas.data');
+Route::get('ventas/{idQuincena}/resumen-pdf', [LibroVentaController::class, 'generarPdfVentas'])->name('ventas.resumen.pdf');
+
 
 Route::get('/compras/create', [LibroCompraController::class, 'create'])->name('compras.create');
 Route::post('/compras/store', [LibroCompraController::class, 'store'])->name('compras.store');
 Route::get('/compras/index', [LibroCompraController::class, 'index'])->name('compras.index');
 Route::get('/compras/data', [LibroCompraController::class, 'data'])->name('compras.data');
-
+Route::get('/compras/{idQuincena}/resumen-pdf', [LibroCompraController::class, 'generarPdf'])->name('compras.resumen_pdf');
 
 
 Route::get('/main', [MainController::class, 'index'])->name('main.mainpage');

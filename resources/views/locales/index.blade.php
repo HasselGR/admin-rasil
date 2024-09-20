@@ -21,6 +21,7 @@
             <tr>
                 <th>ID</th>
                 <th>Ubicación</th>
+                <th>Nombre Local</th>
                 <th>Canon</th>
                 <th>Acciones</th>
             </tr>
@@ -30,6 +31,7 @@
                 <tr>
                     <td>{{ $local->id_local }}</td>
                     <td>{{ $local->ubicacion }}</td>
+                    <td>{{ $local->nombre_local }}</td>
                     <td>{{ $local->canon }}</td>
                     <td>
                         <a href="{{ route('locales.edit', $local->id_local) }}" class="btn btn-info">Editar</a>

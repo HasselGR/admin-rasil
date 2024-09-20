@@ -48,7 +48,10 @@
                     </div>
                     <div class="form-group">
                         <label for="tipo_transaccion">Tipo de Transacción</label>
-                        <input type="text" class="form-control" name="tipo_transaccion" id="tipo_transaccion" required>
+                        <select class="form-control" name="tipo_transaccion" id="tipo_transaccion" required>
+                            <option value="01 REGISTRO">01 REGISTRO</option>
+                            <option value="03">03</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="nro_factura_afectada">Número de Factura Afectada</label>
@@ -98,7 +101,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="base_impo_contribuyente_alic_red">Base Imponible</label>
-                        <input type="number" step="0.01" class="form-control" name="base_impo_contribuyente_alic_red" id="base_impo_contribuyente_alic_red">
+                        <input type="number" step="0.01" class="form-control" name="base_impo_contribuyente_alic_red" id="base_impo_contribuyente_alic_red" value="0.00">
                     </div>
                     <div class="form-group">
                         <label for="alicuota_contribuyente_alic_red">Alicuota</label>
@@ -106,7 +109,7 @@
                     </div>
                     <div class="form-group">
                         <label for="impuesto_iva_contribuyente_alic_red">Impuesto IVA</label>
-                        <input type="number" step="0.01" class="form-control" name="impuesto_iva_contribuyente_alic_red" id="impuesto_iva_contribuyente_alic_red" >
+                        <input type="number" step="0.01" class="form-control" name="impuesto_iva_contribuyente_alic_red" id="impuesto_iva_contribuyente_alic_red" value="0.00" >
                     </div>
                 </div>
             </div>

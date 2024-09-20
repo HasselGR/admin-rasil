@@ -47,7 +47,9 @@
                     </div>
                     <div class="form-group">
                         <label for="tipo_transaccion">Tipo de Transacción</label>
-                        <input type="text" class="form-control form-control-sm" name="tipo_transaccion" id="tipo_transaccion" required>
+                        <select class="form-control form-control-sm" name="tipo_transaccion" id="tipo_transaccion">
+                            <option value="01 REGISTRO" selected>01 REGISTRO</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="total_ventas">Total Ventas con IVA incluido</label>

@@ -23,7 +23,7 @@ class ClienteRentaController extends Controller
         $request->validate([
             'nombre_razon_social' => 'required',
             'rif' => 'required|unique:clientes_renta,rif',
-            'telefono' => 'required|numeric',
+            'telefono' => 'required',
             'correo' => 'required|email|unique:clientes_renta,correo',
         ]);
 

@@ -8,9 +8,13 @@
 @stop
 
 @section('content')
-    <form action="{{ route('local_renta.update', $local->id_local) }}" method="POST">
+    <form action="{{ route('locales.update', $local->id_local) }}" method="POST">
         @csrf
         @method('PUT')
+        <div class="form-group">
+            <label for="nombre_local">Nombre del Local</label>
+            <input type="text" class="form-control" id="nombre_local" name="nombre_local" value="{{ $local->nombre_local }}" required>
+        </div>
         <div class="form-group">
             <label for="ubicacion">Ubicación</label>
             <input type="text" class="form-control" id="ubicacion" name="ubicacion" value="{{ $local->ubicacion }}" required>
