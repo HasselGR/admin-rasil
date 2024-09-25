@@ -6,6 +6,8 @@ use App\Models\RentaLocales;
 use App\Models\LocalRenta;
 use App\Models\ClienteRenta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class RentaLocalesController extends Controller
 {
@@ -23,24 +25,55 @@ class RentaLocalesController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'id_local' => 'required|exists:local_renta,id_local',
-            'id_cliente' => 'required|exists:clientes_renta,id_cliente',
-            'fecha' => 'required|date',
-            'concepto' => 'required',
-            'forma_pago' => 'required',
-            'debe' => 'required|numeric',
-            'haber' => 'required|numeric',
-            'retencion_iva' => 'required|numeric',
-            'retencion_isrf' => 'required|numeric',
-            'saldo' => 'required|numeric',
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'id_local' => 'required|exists:local_renta,id_local',
+        'id_cliente' => 'required|exists:clientes_renta,id_cliente',
+        'haber' => 'required|numeric|min:0',
+        'concepto' => 'required|string',
+        'forma_pago' => 'required|string',
+        'retencion_iva' => 'required|numeric|min:0',
+        'retencion_isrf' => 'required|numeric|min:0',
+    ]);
+
+    try {
+        // Iniciar la transacción de base de datos
+        DB::beginTransaction();
+
+        // Crear el nuevo registro en renta_locales
+        $renta = RentaLocales::create([
+            'id_local' => $request->id_local,
+            'id_cliente' => $request->id_cliente,
+            'haber' => $request->haber,
+            'concepto' => $request->concepto,
+            'forma_pago' => $request->forma_pago,
+            'fecha' => now(), // O la fecha seleccionada
+            'retencion_iva' => $request->retencion_iva,
+            'retencion_isrf' => $request->retencion_isrf,
         ]);
 
-        RentaLocales::create($request->all());
+        // Obtener el cliente para actualizar el saldo
+        $cliente = ClienteRenta::find($request->id_cliente);
 
-        return redirect()->route('renta_locales.index')->with('success', 'Renta creada con éxito');
+        if ($cliente) {
+            // Restar el monto del haber del saldo del cliente
+            $cliente->saldo -= $request->haber;
+            $cliente->save();
+        }
+
+        // Confirmar la transacción
+        DB::commit();
+
+        return redirect()->route('renta_locales.index')->with('success', 'Renta creada y saldo del cliente actualizado correctamente');
+    } catch (\Exception $e) {
+        // Si ocurre algún error, deshacer la transacción
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Error al crear la renta: ' . $e->getMessage());
     }
+}
+
+    
 
     public function edit($id)
     {

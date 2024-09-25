@@ -27,16 +27,16 @@
         </thead>
         <tbody>
             @foreach($rentas as $renta)
-                <tr>
+
+            <!-- cambiar para rreferir al cliente tambien -->
+                <tr> 
                     <td>{{ $renta->id_renta }}</td>
                     <td>{{ $renta->local->ubicacion }}</td>
                     <td>{{ $renta->cliente->nombre_razon_social }}</td>
                     <td>{{ $renta->fecha }}</td>
                     <td>{{ $renta->concepto }}</td>
                     <td>{{ $renta->forma_pago }}</td>
-                    <td>{{ $renta->debe }}</td>
                     <td>{{ $renta->haber }}</td>
-                    <td>{{ $renta->saldo }}</td>
                     <td>
                         <a href="{{ route('renta_locales.edit', $renta->id_renta) }}" class="btn btn-info">Editar</a>
                         <form action="{{ route('renta_locales.destroy', $renta->id_renta) }}" method="POST" style="display:inline-block;">

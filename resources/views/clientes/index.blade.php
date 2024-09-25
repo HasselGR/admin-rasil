@@ -18,6 +18,7 @@
                 <th>RIF</th>
                 <th>Teléfono</th>
                 <th>Correo</th>
+                <th>Saldo</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
                     <td>{{ $cliente->rif }}</td>
                     <td>{{ $cliente->telefono }}</td>
                     <td>{{ $cliente->correo }}</td>
+                    <td>{{ $cliente->saldo }}</td>
                     <td>
                         <a href="{{ route('clientes_renta.edit', $cliente->id_cliente) }}" class="btn btn-info">Editar</a>
                         <form action="{{ route('clientes_renta.destroy', $cliente->id_cliente) }}" method="POST" style="display:inline-block;">

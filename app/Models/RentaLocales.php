@@ -18,11 +18,9 @@ class RentaLocales extends Model
         'fecha', 
         'concepto', 
         'forma_pago', 
-        'debe', 
         'haber', 
         'retencion_iva', 
         'retencion_isrf', 
-        'saldo'
     ];
 
     public function local()

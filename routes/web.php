@@ -10,6 +10,7 @@ use App\Http\Controllers\LibroVentaController;
 use App\Http\Controllers\LibroCompraController;
 use App\Http\Controllers\IngredientesController;
 use App\Http\Controllers\UnidadMedidaController;
+use App\Http\Controllers\MensualidadController;
 use App\Http\Controllers\PlatoController;
 use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\MedidasPlatoController;
@@ -18,7 +19,7 @@ use App\Http\Controllers\CargamentosController;
 use App\Http\Controllers\LocalRentaController;
 use App\Http\Controllers\ClienteRentaController;
 use App\Http\Controllers\RentaLocalesController;
-
+use App\Http\Controllers\CuentasPorCobrarController;
 
 
 Route::get('/', function () {
@@ -67,8 +68,15 @@ Route::get('/orden/{id}', [OrdenController::class, 'show'])->name('ordenes.show'
 //PARA RENTA DE LOCALES
 
 Route::resource('locales', LocalRentaController::class);
+Route::resource('mensualidades', MensualidadController::class);
+
 Route::resource('clientes_renta', ClienteRentaController::class);
 Route::resource('renta_locales', RentaLocalesController::class);
+
+//CUENTAS POR COBRAR.
+Route::resource('cuentas_por_cobrar', CuentasPorCobrarController::class);
+Route::get('cuentas_por_cobrar/{id}/pago', [CuentasPorCobrarController::class, 'pagoForm'])->name('cuentas_por_cobrar.pago');
+Route::post('cuentas_por_cobrar/{id}/pago', [CuentasPorCobrarController::class, 'registrarPago'])->name('cuentas_por_cobrar.registrarPago');
 
 
 //CARGAMENTOS PARA AÑADIR INGREDIENTES
