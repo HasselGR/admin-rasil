@@ -36,6 +36,7 @@
             <div class="detalle-item form-group">
                 <label for="ingrediente_id">Ingrediente</label>
                 <select class="form-control" name="ingrediente_id[]" required>
+                    <option value="">Seleccione una opción</option>
                     @foreach ($ingredientes as $ingrediente)
                         <option value="{{ $ingrediente->id_ingrediente }}">{{ $ingrediente->nombre_ingrediente }}</option>
                     @endforeach

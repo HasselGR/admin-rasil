@@ -12,6 +12,7 @@
         <div class="form-group">
             <label for="id_empleado">Empleado</label>
             <select class="form-control" name="id_empleado" id="id_empleado" required>
+                <option value="">Seleccione una opción</option>
                 @foreach ($empleados as $empleado)
                     <option value="{{ $empleado->id_empleado }}"  data-salario="{{ $empleado->salario_empresa }}" >{{ $empleado->nombre_empleado }} </option>
                 @endforeach
@@ -24,6 +25,7 @@
         <div class="form-group">
             <label for="id_quincena">Quincena</label>
             <select class="form-control" name="id_quincena" id="id_quincena" required>
+                <option value="">Seleccione una opción</option>
                 <!-- Opciones de quincena se cargarán aquí -->
             </select>
             <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#quincenaModal">

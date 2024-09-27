@@ -36,6 +36,7 @@
             <div class="detalle-item form-group">
                 <label for="plato_id">Plato</label>
                 <select class="form-control" name="plato_id[]" required>
+                    <option value="">Seleccione una opción</option>
                     @foreach ($platos as $plato)
                         <option value="{{ $plato->id_plato }}" data-precio="{{ $plato->costo }}">{{ $plato->nombre_plato }}</option>
                     @endforeach

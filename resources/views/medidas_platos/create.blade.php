@@ -13,6 +13,7 @@
         <div class="form-group">
             <label for="id_plato">Plato</label>
             <select class="form-control" name="id_plato" id="id_plato" required>
+                <option value="">Seleccione una opción</option>
                 @foreach ($platos as $plato)
                     <option value="{{ $plato->id_plato }}" data-nombre="{{ $plato->nombre_plato }}">{{ $plato->nombre_plato }}</option>
                 @endforeach
@@ -23,6 +24,7 @@
         <div class="form-group">
             <label for="id_ingrediente">Ingrediente</label>
             <select class="form-control" name="id_ingrediente" id="id_ingrediente" required>
+                <option value="">Seleccione una opción</option>
                 @foreach ($ingredientes as $ingrediente)
                     <option value="{{ $ingrediente->id_ingrediente }}" data-nombre="{{ $ingrediente->nombre_ingrediente }}">{{ $ingrediente->nombre_ingrediente }}</option>
                 @endforeach
@@ -33,6 +35,7 @@
         <div class="form-group">
             <label for="unidad_medida">Unidad de Medida</label>
             <select class="form-control" name="unidad_medida" id="unidad_medida" required>
+                <option value="">Seleccione una opción</option>
                 @foreach ($unidadesMedida as $unidad)
                     <option value="{{ $unidad->id_unidad_medida }}" data-nombre="{{ $unidad->nombre_unidad }}">{{ $unidad->nombre_unidad }}</option>
                 @endforeach

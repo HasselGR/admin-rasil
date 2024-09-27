@@ -20,6 +20,7 @@
                     <div class="form-group">
                         <label for="id_quincena">Quincena</label>
                         <select class="form-control form-control-sm" name="id_quincena" id="id_quincena" required>
+                            <option value="">Seleccione una opción</option>
                             @foreach ($quincenas as $quincena)
                                 <option value="{{ $quincena->id_quincena }}">{{ $quincena->descripcion }}</option>
                             @endforeach

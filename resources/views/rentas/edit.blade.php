@@ -14,6 +14,7 @@
         <div class="form-group">
             <label for="id_local">Local</label>
             <select class="form-control" id="id_local" name="id_local" required>
+                <option value="">Seleccione una opción</option>
                 @foreach($locales as $local)
                     <option value="{{ $local->id_local }}" {{ $renta->id_local == $local->id_local ? 'selected' : '' }}>
                         {{ $local->ubicacion }} - Canon: {{ $local->canon }}
@@ -24,6 +25,7 @@
         <div class="form-group">
             <label for="id_cliente">Cliente</label>
             <select class="form-control" id="id_cliente" name="id_cliente" required>
+                <option value="">Seleccione una opción</option>
                 @foreach($clientes as $cliente)
                     <option value="{{ $cliente->id_cliente }}" {{ $renta->id_cliente == $cliente->id_cliente ? 'selected' : '' }}>
                         {{ $cliente->nombre_razon_social }} - RIF: {{ $cliente->rif }}

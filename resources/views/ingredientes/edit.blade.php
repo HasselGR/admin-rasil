@@ -25,6 +25,7 @@
             <label for="unidad_medida">Unidad de Medida</label>
             <select class="form-control" name="unidad_medida" required>
                 @foreach ($unidadMedidas as $unidadMedida)
+                    <option value="">Seleccione una opción</option>
                     <option value="{{ $unidadMedida->id_unidad_medida }}" {{ $ingrediente->unidad_medida == $unidadMedida->id_unidad_medida ? 'selected' : '' }}>
                         {{ $unidadMedida->nombre_unidad }}
                     </option>

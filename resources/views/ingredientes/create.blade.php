@@ -20,6 +20,7 @@
         <div class="form-group">
             <label for="unidad_medida">Unidad de Medida</label>
             <select class="form-control" name="unidad_medida" required>
+                <option value="">Seleccione una opción</option>
                 @foreach ($unidadesMedida as $unidad)
                     <option value="{{ $unidad->id_unidad_medida }}">{{ $unidad->nombre_unidad }}</option>
                 @endforeach

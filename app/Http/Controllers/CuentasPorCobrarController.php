@@ -5,14 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\CuentasPorCobrar;
 use App\Models\ClienteRenta;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CuentasPorCobrarController extends Controller
 {
     // Listar todas las cuentas por cobrar
     public function index()
     {
-        $cuentas = CuentasPorCobrar::with('cliente')->get(); // Obtener todas las cuentas con su cliente
-        return view('cuentas_por_cobrar.index', compact('cuentas'));
+        // Obtener todas las cuentas con su cliente relacionado
+        $cuentas = CuentasPorCobrar::with('cliente')->get(); 
+    
+        // Obtener todos los clientes para usarlos en la vista
+        $clientes = ClienteRenta::all();
+    
+        // Pasar ambos conjuntos de datos a la vista
+        return view('cuentas_por_cobrar.index', compact('cuentas', 'clientes'));
     }
 
     // Mostrar formulario para crear una nueva cuenta por cobrar
@@ -111,6 +119,32 @@ class CuentasPorCobrarController extends Controller
 
         // Redirigir con un mensaje de éxito
         return redirect()->route('cuentas_por_cobrar.index')->with('success', 'Pago registrado exitosamente.');
+    }
+
+    public function imprimir($id_cliente)
+{
+    // Obtener el cliente por su ID
+    $cliente = ClienteRenta::find($id_cliente);
+
+    // Obtener todas las cuentas por cobrar del cliente seleccionado
+    $cuentasPorCobrar = CuentasPorCobrar::where('id_cliente', $id_cliente)->get();
+
+    // Calcular el total a pagar
+    $totalAPagar = $cuentasPorCobrar->where('estado', false)->sum('monto_con_iva');
+
+    // Preparar los datos para la vista PDF
+    $data = [
+        'cliente' => $cliente,
+        'cuentasPorCobrar' => $cuentasPorCobrar,
+        'totalAPagar' => $totalAPagar,
+    ];
+
+    // Generar el PDF usando la vista `cuentas_por_cobrar.imprimir`
+    $pdf = PDF::loadView('cuentas_por_cobrar.imprimir', $data);
+
+    // Descargar el archivo PDF
+    return $pdf->download('informe_cuentas_'.$cliente->nombre_razon_social.'.pdf');
 }
+
 
 }

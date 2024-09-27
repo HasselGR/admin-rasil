@@ -75,6 +75,8 @@ Route::resource('renta_locales', RentaLocalesController::class);
 
 //CUENTAS POR COBRAR.
 Route::resource('cuentas_por_cobrar', CuentasPorCobrarController::class);
+
+Route::get('cuentas_por_cobrar/imprimir/{id}', [CuentasPorCobrarController::class, 'imprimir'])->name('cuentas_por_cobrar.imprimir');
 Route::get('cuentas_por_cobrar/{id}/pago', [CuentasPorCobrarController::class, 'pagoForm'])->name('cuentas_por_cobrar.pago');
 Route::post('cuentas_por_cobrar/{id}/pago', [CuentasPorCobrarController::class, 'registrarPago'])->name('cuentas_por_cobrar.registrarPago');
 
