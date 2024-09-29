@@ -56,7 +56,9 @@
 @stop
 
 @section('js')
+    <script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
     <script>
+        
         $(document).ready(function() {
             // Agregar nuevo detalle
             $('#add-detalle').click(function() {
@@ -73,6 +75,19 @@
             });
 
             // Manejo del submit con AJAX
+            $(document).ajaxStart(function() {
+                $.blockUI({
+                    message: '<div class="spinner-border" role="status"><span class="sr-only">Cargando...</span></div>',
+                    css: {
+                        backgroundColor: 'transparent',
+                        border: 'none'
+                    }
+                });
+            }).ajaxStop(function() {
+                $.unblockUI();
+            });
+
+
             $('#cargamento-form').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();

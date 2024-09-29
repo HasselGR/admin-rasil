@@ -14,7 +14,15 @@
             {{ $message }}
         </div>
     @endif
-
+    @if (Session::has('warning'))
+    <div class="alert alert-warning">
+        <ul>
+            @foreach (Session::get('warning') as $warning)
+                <li>{{ $warning }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <table class="table table-bordered">
         <thead>
             <tr>

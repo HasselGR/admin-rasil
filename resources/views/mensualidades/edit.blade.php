@@ -58,8 +58,11 @@
 @stop
 
 @section('js')
+    <script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('js/blockUI.js') }}"></script> <!-- Importa el script generalizado -->
     <script>
         $(document).ready(function() {
+
             // Asignar el canon inicial basado en el local seleccionado en la edición
             var selectedCanon = $('#id_local').find('option:selected').data('canon');
             $('#debe').val(selectedCanon);

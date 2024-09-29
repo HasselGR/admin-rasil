@@ -26,7 +26,13 @@ class UnidadMedidaController extends Controller
 
         UnidadMedida::create($request->all());
 
-        return redirect()->route('unidad_medida.index')->with('success', 'Unidad de medida creada con éxito.');
+       
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Unidad de medida creada con éxito',
+        'redirect_url' => route('unidad_medida.index'), // URL para redirigir
+    ]);
     }
 
     public function show(UnidadMedida $unidadMedida)
@@ -47,7 +53,11 @@ class UnidadMedidaController extends Controller
 
         $unidadMedida->update($request->all());
 
-        return redirect()->route('unidad_medida.index')->with('success', 'Unidad de medida actualizada con éxito.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Unidad de medida actualizada con éxito',
+            'redirect_url' => route('unidad_medida.index'), // URL para redirigir
+        ]);
     }
 
     public function destroy(UnidadMedida $unidadMedida)

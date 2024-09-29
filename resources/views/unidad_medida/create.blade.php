@@ -22,5 +22,8 @@
 @stop
 
 @section('js')
+    <script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('js/blockUI.js') }}"></script> <!-- Importa el script generalizado -->
+
     <script> console.log('Page loaded.'); </script>
 @stop

@@ -64,8 +64,14 @@ class RentaLocalesController extends Controller
 
         // Confirmar la transacción
         DB::commit();
+        
 
-        return redirect()->route('renta_locales.index')->with('success', 'Renta creada y saldo del cliente actualizado correctamente');
+        return response()->json([
+            'success' => true,
+            'message' => 'Renta creada y saldo del cliente actualizado correctamente',
+            'redirect_url' => route('renta_locales.index'), // URL para redirigir
+        ]);
+    
     } catch (\Exception $e) {
         // Si ocurre algún error, deshacer la transacción
         DB::rollBack();
@@ -101,7 +107,11 @@ class RentaLocalesController extends Controller
         $renta = RentaLocales::find($id);
         $renta->update($request->all());
 
-        return redirect()->route('renta_locales.index')->with('success', 'Renta actualizada con éxito');
+        return response()->json([
+            'success' => true,
+            'message' => 'Renta actualizada y saldo del cliente actualizado correctamente',
+            'redirect_url' => route('renta_locales.index'), // URL para redirigir
+        ]);
     }
 
     public function destroy($id)

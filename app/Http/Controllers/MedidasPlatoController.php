@@ -38,17 +38,27 @@ class MedidasPlatoController extends Controller
 
         MedidasPlato::create($request->all());
 
-        return redirect()->route('medidas_platos.index')->with('success', 'Medida del plato creada con éxito');
+        return response()->json([
+            'success' => true,
+            'message' => 'Medida creada con éxito',
+            'redirect_url' => route('medidas_platos.index'), // URL para redirigir
+        ]);
     }
 
 
-    public function edit(MedidasPlato $medidaPlato)
-    {
-        $platos = Plato::all();
-        $ingredientes = Ingrediente::all();
-        $unidadesMedida = UnidadMedida::all();
-        return view('medidas_platos.edit', compact('medidaPlato', 'platos', 'ingredientes', 'unidadesMedida'));
-    }
+    public function edit($id_medida_plato)
+{
+    // Buscar el objeto MedidasPlato por su ID
+    $medidaPlato = MedidasPlato::findOrFail($id_medida_plato);
+
+    // Obtener los datos necesarios
+    $platos = Plato::all();
+    $ingredientes = Ingrediente::all();
+    $unidadesMedida = UnidadMedida::all();
+
+    // Pasar los datos a la vista de edición
+    return view('medidas_platos.edit', compact('medidaPlato', 'platos', 'ingredientes', 'unidadesMedida'));
+}
 
     public function update(Request $request, MedidasPlato $medidaPlato)
     {
@@ -61,7 +71,11 @@ class MedidasPlatoController extends Controller
 
         $medidaPlato->update($request->all());
 
-        return redirect()->route('medidas_platos.index')->with('success', 'Medida del plato actualizada con éxito.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Medida creada con éxito',
+            'redirect_url' => route('medidas_platos.index'), // URL para redirigir
+        ]);
     }
 
     public function destroy(MedidasPlato $medidaPlato)

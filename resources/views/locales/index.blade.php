@@ -52,5 +52,8 @@
 @stop
 
 @section('js')
-    <script> console.log('Página de locales de renta cargada'); </script>
+
+
+
+
 @stop

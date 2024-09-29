@@ -70,7 +70,10 @@ class NominaEmpleadoController extends Controller
         ]);
 
         NominaEmpleado::create($request->all());
-        return redirect()->route('nomina-empleados.index')->with('success', 'Empleado creado con éxito');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route(name: 'nomina-empleados.index'), // URL para redirigir
+        ]);
     }
 
     public function show(NominaEmpleado $nominaEmpleado)
@@ -94,7 +97,10 @@ class NominaEmpleadoController extends Controller
         ]);
 
         $nominaEmpleado->update($request->all());
-        return redirect()->route('nomina-empleados.index')->with('success', 'Empleado actualizado con éxito');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route(name: 'nomina-empleados.index'), // URL para redirigir
+        ]);
     }
 
     public function destroy(NominaEmpleado $nominaEmpleado)

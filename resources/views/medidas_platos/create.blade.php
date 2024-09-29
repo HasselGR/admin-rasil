@@ -57,9 +57,10 @@
 @stop
 
 @section('js')
+    <script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('js/blockUI.js') }}"></script> <!-- Importa el script generalizado -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Update the hidden input when the select changes
             document.getElementById('id_plato').addEventListener('change', function() {
                 const selectedOption = this.options[this.selectedIndex];
                 document.getElementById('nombre_plato').value = selectedOption.getAttribute('data-nombre');

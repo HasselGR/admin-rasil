@@ -34,7 +34,7 @@ class OrdenController extends Controller
         $orden->fecha = $request->input('fecha');
         $orden->hora = $request->input('hora');
         $orden->save();
-
+        $inventarioExcedido = false;
 
 
         // Iterar sobre los platos seleccionados y crear detalles de la orden
@@ -62,7 +62,7 @@ class OrdenController extends Controller
                 $cantidadNecesaria = $ingrediente->cantidad * $request->cantidad[$index];
 
                 if ($ingredienteBase->cantidad < $cantidadNecesaria) {
-                    throw new \Exception('No hay suficiente inventario para ' . $ingredienteBase->nombre_ingrediente);
+                    $inventarioExcedido = true;
                 }
 
                 // Actualizar la cantidad de ingredientes en inventario
@@ -76,8 +76,19 @@ class OrdenController extends Controller
         $orden->save();
 
         
+        if($inventarioExcedido == false){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Orden creada exitosamente',
+            ]);
 
-        return redirect()->route('orden.index')->with('success', 'Orden creada con éxito');
+        }else{
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Platillo excedido de inventario, revisar.',
+            ]);
+
+        }
     
 }
     

@@ -80,7 +80,10 @@ class LibroCompraController extends Controller
 
         LibroCompra::create($request->all());
 
-        return redirect()->route('main.mainpage')->with('success', 'Compra creada con éxito');
+        return response()->json([
+        'success' => true,
+        'redirect_url' => route('compras.index'), // URL para redirigir
+        ]);
     }
 
     public function show($id)

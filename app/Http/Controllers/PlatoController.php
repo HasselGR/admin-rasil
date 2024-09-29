@@ -28,7 +28,11 @@ class PlatoController extends Controller
 
         Plato::create($request->all());
 
-        return redirect()->route('plato.index')->with('success', 'Plato creado con éxito.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Plato creado con éxito',
+            'redirect_url' => route('plato.index'), // URL para redirigir
+        ]);
     }
 
     public function show($id)
@@ -54,7 +58,11 @@ class PlatoController extends Controller
         $plato = Plato::findOrFail($id);
         $plato->update($request->all());
 
-        return redirect()->route('plato.index')->with('success', 'Plato actualizado con éxito.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Plato actualizado con éxito',
+            'redirect_url' => route('plato.index'), // URL para redirigir
+        ]);
     }
 
     public function destroy($id)

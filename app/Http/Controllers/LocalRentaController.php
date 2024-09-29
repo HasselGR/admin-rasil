@@ -29,7 +29,10 @@ class LocalRentaController extends Controller
 
         LocalRenta::create($request->all());
 
-        return redirect()->route('locales.index')->with('success', 'Local creado con éxito');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route('locales.index'), // URL para redirigir
+        ]);
     }
 
     

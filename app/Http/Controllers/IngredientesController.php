@@ -32,7 +32,11 @@ class IngredientesController extends Controller
 
         Ingrediente::create($request->all());
 
-        return redirect()->route('ingredientes.index')->with('success', 'Ingrediente creado con éxito.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Ingrediente creado con éxito',
+            'redirect_url' => route('ingredientes.index'), // URL para redirigir
+        ]);
     }
 
     public function show($id)
@@ -58,7 +62,11 @@ class IngredientesController extends Controller
 
         $ingrediente->update($request->all());
 
-        return redirect()->route('ingredientes.index')->with('success', 'Ingrediente actualizado con éxito.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Ingrediente editado con éxito',
+            'redirect_url' => route('ingredientes.index'), // URL para redirigir
+        ]);
     }
 
     public function destroy(Ingrediente $ingrediente)

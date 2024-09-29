@@ -24,30 +24,7 @@ $(document).ready(function() {
     };  
 
 
-    $('#create-compra-form').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
 
-        // Gather form data
-        var formData = $(this).serialize();
-
-        // Perform the AJAX request
-        $.ajax({
-            url: $(this).attr('action'),
-            type: $(this).attr('method'),
-            data: formData,
-            success: function(response) {
-                // Handle success, e.g., display a success message or redirect
-                alert('Form submitted successfully!');
-                console.log(response);
-                window.location.href = '/main'; // Redirect to the desired page
-            },
-            error: function(xhr, status, error) {
-                // Handle error, e.g., display an error message
-                alert('Error submitting form: ' + error);
-                console.error(xhr, status, error);
-            }
-        });
-    });
 
     
     totalComprasInput.on('input', calcularValores);

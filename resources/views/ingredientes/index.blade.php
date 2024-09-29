@@ -7,6 +7,12 @@
 @stop
 
 @section('content')
+    @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                {{ $message }}
+            </div>
+        @endif
+
     <a href="{{ route('ingredientes.create') }}" class="btn btn-primary mb-3">Agregar Ingrediente</a>
     <table class="table table-bordered">
         <thead>
@@ -23,7 +29,9 @@
                 <tr>
                     <td>{{ $ingrediente->id_ingrediente }}</td>
                     <td>{{ $ingrediente->nombre_ingrediente }}</td>
-                    <td>{{ $ingrediente->cantidad }}</td>
+                    <td class="{{ $ingrediente->cantidad < 0 ? 'text-danger font-weight-bold' : '' }}">
+                        {{ $ingrediente->cantidad }}
+                    </td>
                     <td>{{ $ingrediente->unidadMedida->nombre_unidad ?? 'N/A' }}</td>
                     <td>
                         <a href="{{ route('ingredientes.show', $ingrediente->id_ingrediente) }}" class="btn btn-info">Mostrar</a>

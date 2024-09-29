@@ -113,7 +113,10 @@ class LibroVentaController extends Controller
 
         LibroVenta::create($request->all());
 
-        return redirect()->route('main.mainpage')->with('success', 'Venta creada con éxito');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route('ventas.index'), // URL para redirigir
+        ]);
     }
 
     public function show($id)

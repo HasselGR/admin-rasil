@@ -24,6 +24,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Crear Local</button>
     </form>
+
 @stop
 
 @section('css')
@@ -31,5 +32,6 @@
 @stop
 
 @section('js')
-    <script> console.log('Página de creación de local cargada'); </script>
+    <script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('js/blockUI.js') }}"></script> <!-- Importa el script generalizado -->
 @stop

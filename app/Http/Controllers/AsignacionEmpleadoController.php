@@ -47,7 +47,10 @@ class AsignacionEmpleadoController extends Controller
         AsignacionEmpleado::create($request->all());
         DeduccionEmpleado::create($request->all());
     
-        return redirect()->route('nomina-empleados.index')->with('success', 'Asignación creada con éxito');
+       return response()->json([
+            'success' => true,
+            'redirect_url' =>  url('/nomina-empleados'), // Genera una URL absoluta, // URL para redirigir
+        ]);
     }
 
     public function edit(AsignacionEmpleado $asignacionEmpleado)

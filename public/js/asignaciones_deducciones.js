@@ -40,8 +40,7 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 // Handle success, e.g., display a success message or redirect
-                alert('Form submitted successfully!');
-                console.log(response);
+                
                 window.location.href = '/nomina-empleados'; // Redirect to the desired page
             },
             error: function(xhr, status, error) {

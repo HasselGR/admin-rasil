@@ -44,7 +44,10 @@ class CuentasPorCobrarController extends Controller
 
         $cuenta = CuentasPorCobrar::create($request->all());
 
-        return redirect()->route('cuentas_por_cobrar.index')->with('success', 'Cuenta por cobrar creada con éxito.');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route('cuentas_por_cobrar.index'), // URL para redirigir
+        ]);
     }
 
     // Mostrar los detalles de una cuenta por cobrar
@@ -118,7 +121,11 @@ class CuentasPorCobrarController extends Controller
         $cuentaPorCobrar->save();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('cuentas_por_cobrar.index')->with('success', 'Pago registrado exitosamente.');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route('cuentas_por_cobrar.index'), // URL para redirigir
+        ]);
+        
     }
 
     public function imprimir($id_cliente)

@@ -157,4 +157,6 @@
 
 @section('js')
     <script src="{{ asset('js/asignaciones_deducciones.js') }}"></script>
+    <script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('js/blockUI.js') }}"></script> <!-- Importa el script generalizado -->
 @stop

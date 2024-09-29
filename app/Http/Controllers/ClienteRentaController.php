@@ -28,8 +28,10 @@ class ClienteRentaController extends Controller
         ]);
 
         ClienteRenta::create($request->all());
-
-        return redirect()->route('clientes_renta.index')->with('success', 'Cliente creado con éxito');
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route('clientes_renta.index'), // URL para redirigir
+        ]);
     }
 
     public function edit($id)

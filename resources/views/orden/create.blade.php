@@ -19,6 +19,16 @@
         </div>
     @endif
 
+    @if (Session::has('warning'))
+    <div class="alert alert-warning">
+        <ul>
+            @foreach (Session::get('warning') as $warning)
+                <li>{{ $warning }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form id="orden-form">
         @csrf
         <div class="form-group">
@@ -62,7 +72,9 @@
 @stop
 
 @section('js')
+<script src="{{ asset('vendor/blockui/js/jquery.blockui.min.js') }}"></script>
     <script>
+
         $(document).ready(function() {
             // Function to update the total when quantity or price is changed
             function updateTotal(detalleItem) {
@@ -71,6 +83,19 @@
                 var total = cantidad * precioUnitario;
                 $(detalleItem).find('.total-input').val(total.toFixed(2));
             }
+
+
+            $(document).ajaxStart(function() {
+                $.blockUI({
+                    message: '<div class="spinner-border" role="status"><span class="sr-only">Cargando...</span></div>',
+                    css: {
+                        backgroundColor: 'transparent',
+                        border: 'none'
+                    }
+                });
+            }).ajaxStop(function() {
+                $.unblockUI();
+            });
 
             // Update price when a different plato is selected
             $('#detalles-repeater').on('change', 'select[name="plato_id[]"]', function() {
@@ -105,14 +130,13 @@
             $('#orden-form').on('submit', function(e) {
                 e.preventDefault(); // Prevent the default form submission
                 var formData = $(this).serialize();
-
+                
                 $.ajax({
                     url: '{{ route("orden.store") }}',
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        alert('Orden creada con éxito');
-                        // Optionally redirect or clear the form
+                        alert(response.message)
                         window.location.href = '{{ route("orden.index") }}';
                     },
                     error: function(response) {

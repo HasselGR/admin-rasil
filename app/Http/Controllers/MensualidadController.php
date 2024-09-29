@@ -69,7 +69,12 @@ class MensualidadController extends Controller
         // Confirmar la transacción
         DB::commit();
 
-        return redirect()->route('mensualidades.index')->with('success', 'Mensualidad creada y saldo actualizado correctamente');
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Mensualidad creada y saldo actualizado correctamente',
+            'redirect_url' => route('mensualidades.index'), // URL para redirigir
+        ]);
     } catch (\Exception $e) {
         // Si ocurre algún error, deshacer la transacción
         DB::rollBack();
@@ -137,7 +142,11 @@ class MensualidadController extends Controller
             // Confirmar la transacción
             DB::commit();
     
-            return redirect()->route('mensualidades.index')->with('success', 'Mensualidad actualizada y saldo del cliente ajustado correctamente');
+            return response()->json([
+                'success' => true,
+                'message' => 'Mensualidad editada y saldo actualizado correctamente',
+                'redirect_url' => route('mensualidades.index'), // URL para redirigir
+            ]);
         } catch (\Exception $e) {
             // Si ocurre algún error, deshacer la transacción
             DB::rollBack();
