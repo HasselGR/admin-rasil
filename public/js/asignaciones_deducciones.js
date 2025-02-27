@@ -45,7 +45,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 // Handle error, e.g., display an error message
-                alert('Error submitting form: ' + error);
+                alert('Error al introducir la forma: ' + error);
                 console.error(xhr, status, error);
             }
         });
@@ -75,7 +75,7 @@ $(document).ready(function() {
                 loadQuincenas(); // Recargar las quincenas
             },
             error: function(response) {
-                alert('Hubo un error al crear la quincena.');
+                alert('Error al crear la quincena: ' + response.error);
             }
         });
     });
@@ -99,8 +99,8 @@ function loadQuincenas() {
                 quincenaSelect.append(option);
             });
         },
-        error: function() {
-            alert('Hubo un error al cargar las quincenas.');
+        error: function(error) {
+            alert('Hubo un error al cargar las quincenas.' + error);
         }
     });
 }

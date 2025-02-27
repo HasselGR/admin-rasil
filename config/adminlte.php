@@ -319,10 +319,15 @@ return [
             'icon' => 'fas fa-fw fa-clock',
         ],
         [
-            'text' => 'Pago de Quincena',
-            'url' => '/nomina-empleados/pago-quincena',
-            'icon' => 'fas fa-fw fa-calendar-alt',
+            'text' => 'Gestión de Quincenas',
+            'url' => '/quincenas/index',
+            'icon' => 'fas fa-fw fa-clock',
         ],
+        // [
+        //     'text' => 'Pago de Quincena',
+        //     'url' => '/nomina-empleados/pago-quincena',
+        //     'icon' => 'fas fa-fw fa-calendar-alt',
+        // ],
 
         // Sección de Libro de Compra/Venta
         ['header' => 'Libro de Compra y Venta'],
@@ -390,6 +395,11 @@ return [
         [
             'text' => 'Registro de Renta',
             'url' => '/renta_locales',
+            'icon' => 'fas fa-fw fa-file-contract',
+        ],
+        [
+            'text' => 'Cuentas por cobrar',
+            'url' => '/cuentas_por_cobrar',
             'icon' => 'fas fa-fw fa-file-contract',
         ],
 

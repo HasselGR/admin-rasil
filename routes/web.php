@@ -33,6 +33,8 @@ Route::get('/ventas/data', [LibroVentaController::class, 'data'])->name('ventas.
 Route::get('ventas/{idQuincena}/resumen-pdf', [LibroVentaController::class, 'generarPdfVentas'])->name('ventas.resumen.pdf');
 
 
+
+
 Route::get('/compras/create', [LibroCompraController::class, 'create'])->name('compras.create');
 Route::post('/compras/store', [LibroCompraController::class, 'store'])->name('compras.store');
 Route::get('/compras/index', [LibroCompraController::class, 'index'])->name('compras.index');
@@ -91,7 +93,9 @@ Route::get('/nomina-empleados/{nomina_empleado}/horas', [NominaEmpleadoControlle
 
 //
 Route::post('/quincenas', [QuincenaController::class, 'store'])->name('quincenas.store');
+Route::post('/quincenas', [QuincenaController::class, 'storeRedirect'])->name('quincenas.storeRedirect');
 Route::get('/quincenas', [QuincenaController::class, 'index'])->name('quincenas.index');
+Route::get('/quincenas/index', [QuincenaController::class, 'indexPagina'])->name('quincenas.indexPagina');
 
 
 // Ruta para almacenar asignaciones
