@@ -6,22 +6,37 @@ use App\Models\CuentasPorCobrar;
 use App\Models\ClienteRenta;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Yajra\DataTables\DataTables;
 
 class CuentasPorCobrarController extends Controller
 {
     // Listar todas las cuentas por cobrar
-    public function index()
+    public function index(Request $request)
     {
-        // Obtener todas las cuentas con su cliente relacionado
-        $cuentas = CuentasPorCobrar::with('cliente')->get(); 
-    
-        // Obtener todos los clientes para usarlos en la vista
+        if ($request->ajax()) {
+            $cuentas = CuentasPorCobrar::with('cliente')->select(['id_cuenta', 'id_factura', 'nombre_cliente', 'fecha_emision', 'fecha_vencimiento', 'monto_con_iva', 'estado', 'fecha_pago']);
+            
+            return DataTables::of($cuentas)
+                ->addColumn('acciones', function ($cuenta) {
+                    $acciones = '<a href="'.route('cuentas_por_cobrar.show', $cuenta->id_cuenta).'" class="btn btn-info">Ver</a>';
+                    if (!$cuenta->estado) {
+                        $acciones .= ' <a href="'.route('cuentas_por_cobrar.pago', $cuenta->id_cuenta).'" class="btn btn-success">Registrar Pago</a>';
+                    }
+                    $acciones .= ' <form action="'.route('cuentas_por_cobrar.destroy', $cuenta->id_cuenta).'" method="POST" style="display:inline-block;">
+                                    '.csrf_field().'
+                                    '.method_field('DELETE').'
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm(\'¿Estás seguro de eliminar esta cuenta?\')">Eliminar</button>
+                                </form>';
+                    return $acciones;
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
+
         $clientes = ClienteRenta::all();
-    
-        // Pasar ambos conjuntos de datos a la vista
-        return view('cuentas_por_cobrar.index', compact('cuentas', 'clientes'));
+        return view('cuentas_por_cobrar.index', compact('clientes'));
     }
+
 
     // Mostrar formulario para crear una nueva cuenta por cobrar
     public function create()

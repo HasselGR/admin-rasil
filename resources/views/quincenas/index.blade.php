@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-bordered" id="quincenas-table">
+                <table class="table table-bordered " id="quincenas-table">
                     <thead>
                         <tr>
                             <th>ID</th>

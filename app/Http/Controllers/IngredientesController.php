@@ -5,14 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Ingrediente;
 use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+
 
 class IngredientesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ingredientes = Ingrediente::with('unidadMedida')->get(); // Carga la relación con la tabla unidad_medida
-    
-        return view('ingredientes.index', compact('ingredientes'));
+        if ($request->ajax()) {
+            $ingredientes = Ingrediente::with('unidadMedida')->select(['id_ingrediente', 'nombre_ingrediente', 'cantidad', 'unidad_medida']);
+            
+            return DataTables::of($ingredientes)
+                ->addColumn('unidad_medida', function ($ingrediente) {
+                    return $ingrediente->unidadMedida->nombre_unidad ?? 'N/A';
+                })
+                ->addColumn('acciones', function ($ingrediente) {
+                    return '
+                        <a href="'.route('ingredientes.show', $ingrediente->id_ingrediente).'" class="btn btn-info">Mostrar</a>
+                        <a href="'.route('ingredientes.edit', $ingrediente->id_ingrediente).'" class="btn btn-primary">Editar</a>
+                        <form action="'.route('ingredientes.destroy', $ingrediente->id_ingrediente).'" method="POST" style="display:inline-block;">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
+
+        return view('ingredientes.index');
     }
     
 

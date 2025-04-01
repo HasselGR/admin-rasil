@@ -4,13 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\ClienteRenta;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+
 
 class ClienteRentaController extends Controller
 {
-    public function index()
-    {   
-        $clientes = ClienteRenta::all();
-        return view('clientes.index', compact('clientes'));
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $clientes = ClienteRenta::select(['id_cliente', 'nombre_razon_social', 'rif', 'telefono', 'correo', 'saldo']);
+            
+            return DataTables::of($clientes)
+                ->addColumn('acciones', function ($cliente) {
+                    return '
+                        <a href="'.route('clientes_renta.edit', $cliente->id_cliente).'" class="btn btn-primary">Editar</a>
+                        <form action="'.route('clientes_renta.destroy', $cliente->id_cliente).'" method="POST" style="display:inline-block;">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger" onclick="return confirm(\'¿Estás seguro de eliminar este cliente?\')">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
+
+        return view('clientes.index');
     }
 
     public function create()

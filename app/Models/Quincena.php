@@ -18,4 +18,8 @@ class Quincena extends Model
         'fecha_final',
         'descripcion',
     ];
+    public function asignacionesEmpleados()
+    {
+        return $this->hasMany(AsignacionEmpleado::class, 'id_quincena', 'id_quincena');
+    }
 }

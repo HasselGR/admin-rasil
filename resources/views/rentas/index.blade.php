@@ -19,9 +19,7 @@
                 <th>Fecha</th>
                 <th>Concepto</th>
                 <th>Forma de Pago</th>
-                <th>Debe</th>
                 <th>Haber</th>
-                <th>Saldo</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -37,6 +35,7 @@
                     <td>{{ $renta->concepto }}</td>
                     <td>{{ $renta->forma_pago }}</td>
                     <td>{{ $renta->haber }}</td>
+
                     <td>
                         <a href="{{ route('renta_locales.edit', $renta->id_renta) }}" class="btn btn-info">Editar</a>
                         <form action="{{ route('renta_locales.destroy', $renta->id_renta) }}" method="POST" style="display:inline-block;">

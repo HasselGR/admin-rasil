@@ -3,7 +3,7 @@
 @section('title', 'Asignaciones y Deducciones')
 
 @section('content_header')
-    <h1>Asignaciones y Deducciones para {{ $nominaEmpleado->nombre_empleado }}</h1>
+    <h1>Asignaciones y Deducciones de {{ $empleado->nombre_empleado }}</h1>
 @stop
 
 @section('content')
@@ -11,6 +11,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Quincena</th>
                 <th>Días Trabajados</th>
                 <th>Días Descanso</th>
                 <th>Horas Extra Diurnas</th>
@@ -23,7 +24,8 @@
         </thead>
         <tbody>
             @foreach ($asignaciones as $asignacion)
-            <tr>
+            <tr class="bg-white">
+                <td>{{ $asignacion->quincena->descripcion }}   ( {{ $asignacion->quincena->fecha_inicio }} - {{ $asignacion->quincena->fecha_final }} )</td>
                 <td>{{ $asignacion->dias_trabajados }}</td>
                 <td>{{ $asignacion->dias_descanso }}</td>
                 <td>{{ $asignacion->horas_extra_diurnas }}</td>
@@ -40,7 +42,8 @@
     <h2>Deducciones</h2>
     <table class="table table-bordered">
         <thead>
-            <tr>
+            <tr >
+                <th>Quincena</th>
                 <th>S.S.O</th>
                 <th>Paro Forzoso</th>
                 <th>Ley Política Habitacional</th>
@@ -52,7 +55,8 @@
         </thead>
         <tbody>
             @foreach ($deducciones as $deduccion)
-            <tr>
+            <tr class="bg-white">
+                <td>{{ $deduccion->quincena->descripcion }} ( {{ $deduccion->quincena->fecha_inicio }} - {{ $deduccion->quincena->fecha_final }} )</td>
                 <td>{{ $deduccion->s_s_o }}</td>
                 <td>{{ $deduccion->paro_forzoso }}</td>
                 <td>{{ $deduccion->ley_politica_habit }}</td>

@@ -7,7 +7,9 @@
 @stop
 
 @section('content')
-    <form action="{{ route('nomina-empleados.store') }}" method="POST">
+    
+    <form class="card w-25 p-2" action="{{ route('nomina-empleados.store') }}" method="POST">
+        <h5>Por favor, introduzca los datos del empleado a agregar.</h5>
         @csrf
         <div class="form-group">
             <label for="nombre_empleado">Nombre del Empleado</label>
@@ -23,13 +25,13 @@
         </div>
         <div class="form-group">
             <label for="salario_gobierno">Salario Gobierno</label>
-            <input type="number" class="form-control" name="salario_gobierno" required>
+            <input type="number" min="0" class="form-control" name="salario_gobierno" required>
         </div>
         <div class="form-group">
             <label for="salario_empresa">Salario Empresa</label>
-            <input type="number" class="form-control" name="salario_empresa" required>
+            <input type="number" min="0"  class="form-control" name="salario_empresa" required>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="w-25 btn btn-primary ml-auto">Guardar</button>
     </form>
 @stop
 

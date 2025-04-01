@@ -17,6 +17,7 @@ $(document).ready(function() {
             var numeroDeLunes = calcularLunes(fechaInicio, fechaFinal);
             console.log('Número de lunes:', numeroDeLunes);
             $('#numero_lunes').val(numeroDeLunes);
+            calcularTotalDeducido(salario);
         }
     });
 
@@ -53,6 +54,7 @@ $(document).ready(function() {
    
     $('#dias_trabajados, #dias_descanso, #horas_extra_diurnas, #horas_extra_nocturnas, #bono_nocturno, #clt, #dia_feriado_trabajado').on('change', function() {
         calcularTotalDevengado(salario);
+        calcularTotalDeducido(salario);
     });
     $('#s_s_o, #paro_forzoso, #ley_politica_habit, #sindicato, #descuento_faltas, #descuento_prestamos').on('change', function() {
         calcularTotalDeducido(salario);
@@ -65,11 +67,11 @@ $(document).ready(function() {
         var formData = $(this).serialize();
 
         $.ajax({
-            url: '/quincenas', // Puedes usar la ruta directamente
+            url: '/quincenas/store', // Puedes usar la ruta directamente
             method: 'POST',
             data: formData,
             success: function(response) {
-                alert(response.message);
+                alert(response.message)
                 $('#quincenaModal').modal('hide');
                 $('#quincena-form')[0].reset();
                 loadQuincenas(); // Recargar las quincenas
@@ -87,7 +89,6 @@ function loadQuincenas() {
         method: 'GET',
         success: function(response) {
             var quincenaSelect = $('#id_quincena');
-            quincenaSelect.empty(); // Limpiar el selector
 
             response.forEach(function(quincena) {
                 var option = new Option(
@@ -150,6 +151,10 @@ function calcularTotalDeducido(salario) {
 
     var totalDeducido =  SSO + paroForzoso + leyPolitica + sindicato + descuentoFaltas + descuentoPrestamos;
     console.log(totalDeducido) 
+    $('#S_S_O').val(SSO.toFixed(2))
+    $('#paro_forzoso').val(SSO.toFixed(2))
+    $('#ley_politica_habit').val(leyPolitica.toFixed(2))
+    $('#sindicato').val(sindicato.toFixed(2))
     $('#total_deducciones').val(totalDeducido.toFixed(2));
     $('#total_pagar').val(parseFloat( $('#total_devengado').val() - totalDeducido ).toFixed(2));
 }

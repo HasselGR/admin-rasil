@@ -5,13 +5,30 @@ namespace App\Http\Controllers;
 
 use App\Models\LocalRenta;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class LocalRentaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $locales = LocalRenta::all();
-        return view('locales.index', compact('locales'));
+        if ($request->ajax()) {
+            $locales = LocalRenta::select(['id_local', 'nombre_local', 'canon', 'ubicacion']);
+            
+            return DataTables::of($locales)
+                ->addColumn('acciones', function ($local) {
+                    return '
+                        <a href="'.route('locales.edit', $local->id_local).'" class="btn btn-primary">Editar</a>
+                        <form action="'.route('locales.destroy', $local->id_local).'" method="POST" style="display:inline-block;">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
+
+        return view('locales.index');
     }
 
     public function create()

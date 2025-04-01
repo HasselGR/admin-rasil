@@ -41,6 +41,7 @@ class QuincenaController extends Controller
         Quincena::create($request->all());
 
         return response()->json([
+            'code' => 200,
             'success' => true,
             'message' => 'Quincena creada con éxito'
         ]);

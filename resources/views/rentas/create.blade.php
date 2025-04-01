@@ -25,7 +25,7 @@
             <select class="form-control" id="id_local" name="id_local" required>
                 <option value="">Seleccionar Local</option>
                 @foreach ($locales as $local)
-                    <option value="{{ $local->id_local }}">{{ $local->ubicacion }}</option>
+                    <option value="{{ $local->id_local }}">{{ $local->nombre_local }}</option>
                 @endforeach
             </select>
         </div>

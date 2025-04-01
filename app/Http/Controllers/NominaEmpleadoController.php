@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\NominaEmpleado;
 use App\Models\AsignacionEmpleado;
 use App\Models\DeduccionEmpleado;
+use App\Models\Quincena;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
+
+
 
 class NominaEmpleadoController extends Controller
 {
@@ -63,7 +66,7 @@ class NominaEmpleadoController extends Controller
     {
         $request->validate([
             'nombre_empleado' => 'required',
-            'cedula_identidad' => 'required|unique:nomina_empleados,cedula_identidad',
+            'cedula_identidad' => 'required|unique:nomina_empleados,cedula_identidad|max:25',
             'cod_contrato' => 'required',
             'salario_gobierno' => 'required|numeric',
             'salario_empresa' => 'required|numeric',
@@ -109,17 +112,13 @@ class NominaEmpleadoController extends Controller
         return redirect()->route('nomina-empleados.index')->with('success', 'Empleado eliminado con éxito');
     }
 
-    public function showAsignacionesDeducciones($id_empleado)
+    public function ShowAsignacionesDeducciones($id)
     {
-        $nominaEmpleado = NominaEmpleado::find($id_empleado);
+        $empleado = NominaEmpleado::findOrFail($id);
+        $asignaciones = AsignacionEmpleado::where('id_empleado', $id)->get();
+        $deducciones = DeduccionEmpleado::where('id_empleado', $id)->get();
+        $quincenas = Quincena::all();
 
-        if (!$nominaEmpleado) {
-            return redirect()->route('nomina-empleados.index')->with('error', 'Empleado no encontrado');
-        }
-
-        $asignaciones = AsignacionEmpleado::where('id_empleado', $id_empleado)->get();
-        $deducciones = DeduccionEmpleado::where('id_empleado', $id_empleado)->get();
-
-        return view('nomina_empleados.horas', compact('nominaEmpleado', 'asignaciones', 'deducciones'));
+        return view('nomina_empleados.horas', compact('empleado', 'asignaciones', 'deducciones', 'quincenas'));
     }
 }

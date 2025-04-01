@@ -20,10 +20,8 @@
 
     <a href="#" id="imprimirBtn" class="btn btn-primary" target="_blank" data-url="{{ url('cuentas_por_cobrar/imprimir') }}">Imprimir Informe</a>
 
-
-
     <hr>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="cuentas-table">
         <thead>
             <tr>
                 <th>ID Factura</th>
@@ -35,36 +33,42 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach($cuentas as $cuenta)
-                <tr>
-                    <td>{{ $cuenta->id_factura }}</td>
-                    <td>{{ $cuenta->nombre_cliente }}</td>
-                    <td>{{ $cuenta->fecha_emision }}</td>
-                    <td>{{ $cuenta->fecha_vencimiento }}</td>
-                    <td>{{ $cuenta->monto_con_iva }}</td>
-                    <td>{{ $cuenta->estado ? 'Pagada '. '(Fecha Pago: '. $cuenta->fecha_pago .')' : 'Pendiente' }}</td>
-                    <td>
-                        <a href="{{ route('cuentas_por_cobrar.show', $cuenta->id_cuenta) }}" class="btn btn-info">Ver</a>
-                        @if(!$cuenta->estado)
-                                <a href="{{ route('cuentas_por_cobrar.pago', $cuenta->id_cuenta) }}" class="btn btn-success">Registrar Pago</a>
-                        @endif
-                        <form action="{{ route('cuentas_por_cobrar.destroy', $cuenta->id_cuenta) }}" method="POST" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta cuenta?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
     </table>
 @stop
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/css/dataTables.bootstrap4.min.css') }}">
+@stop
 
 @section('js')
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#cuentas-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('cuentas_por_cobrar.index') }}',
+                columns: [
+                    { data: 'id_factura', name: 'id_factura' },
+                    { data: 'nombre_cliente', name: 'nombre_cliente' },
+                    { data: 'fecha_emision', name: 'fecha_emision' },
+                    { data: 'fecha_vencimiento', name: 'fecha_vencimiento' },
+                    { data: 'monto_con_iva', name: 'monto_con_iva' },
+                    { data: 'estado', name: 'estado', render: function(data, type, row) {
+                        return data ? 'Pagada (Fecha Pago: ' + row.fecha_pago + ')' : 'Pendiente';
+                    }},
+                    { data: 'acciones', name: 'acciones', orderable: false, searchable: false }
+                ]
+            });
 
-    <script src="{{ asset('js/cuentas_por_cobrar.js') }}"></script>
-
-
+            $('#empresa').change(function() {
+                var id_cliente = $(this).val();
+                var url = $('#imprimirBtn').data('url') + '/' + id_cliente;
+                $('#imprimirBtn').attr('href', url);
+            });
+        });
+    </script>
 @stop

@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -393,7 +393,12 @@ return [
             'icon' => 'fas fa-fw fa-user-tie',
         ],
         [
-            'text' => 'Registro de Renta',
+            'text' => 'Cobro de renta',
+            'url' => '/mensualidades',
+            'icon' => 'fas fa-fw fa-calendar',
+        ],
+        [
+            'text' => 'Pago de Renta',
             'url' => '/renta_locales',
             'icon' => 'fas fa-fw fa-file-contract',
         ],

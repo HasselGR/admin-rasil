@@ -8,9 +8,15 @@
 @stop
 
 @section('content')
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endif
+
     <a href="{{ route('clientes_renta.create') }}" class="btn btn-primary mb-3">Crear Nuevo Cliente</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered w-75" id="clientes-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -22,25 +28,34 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach($clientes as $cliente)
-                <tr>
-                    <td>{{ $cliente->id_cliente }}</td>
-                    <td>{{ $cliente->nombre_razon_social }}</td>
-                    <td>{{ $cliente->rif }}</td>
-                    <td>{{ $cliente->telefono }}</td>
-                    <td>{{ $cliente->correo }}</td>
-                    <td>{{ $cliente->saldo }}</td>
-                    <td>
-                        <a href="{{ route('clientes_renta.edit', $cliente->id_cliente) }}" class="btn btn-info">Editar</a>
-                        <form action="{{ route('clientes_renta.destroy', $cliente->id_cliente) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
     </table>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/css/dataTables.bootstrap4.min.css') }}">
+@stop
+
+@section('js')
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#clientes-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('clientes_renta.index') }}',
+                columns: [
+                    { data: 'id_cliente', name: 'id_cliente' },
+                    { data: 'nombre_razon_social', name: 'nombre_razon_social' },
+                    { data: 'rif', name: 'rif' },
+                    { data: 'telefono', name: 'telefono' },
+                    { data: 'correo', name: 'correo' },
+                    { data: 'saldo', name: 'saldo' },
+                    { data: 'acciones', name: 'acciones', orderable: false, searchable: false }
+                ]
+            });
+        });
+    </script>
 @stop

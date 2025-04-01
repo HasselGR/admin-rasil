@@ -92,7 +92,7 @@ Route::get('/nomina-empleados/{nomina_empleado}/horas', [NominaEmpleadoControlle
 
 
 //
-Route::post('/quincenas', [QuincenaController::class, 'store'])->name('quincenas.store');
+Route::post('/quincenas/store', [QuincenaController::class, 'store'])->name('quincenas.store');
 Route::post('/quincenas', [QuincenaController::class, 'storeRedirect'])->name('quincenas.storeRedirect');
 Route::get('/quincenas', [QuincenaController::class, 'index'])->name('quincenas.index');
 Route::get('/quincenas/index', [QuincenaController::class, 'indexPagina'])->name('quincenas.indexPagina');

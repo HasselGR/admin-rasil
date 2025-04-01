@@ -79,27 +79,27 @@
                 </div>
                 <div class="form-group">
                     <label for="paro_forzoso">Paro Forzoso</label>
-                    <input type="number" class="form-control" name="paro_forzoso" id="paro_forzoso" required>
+                    <input type="number" step="0.01" class="form-control" name="paro_forzoso" id="paro_forzoso" required>
                 </div>
                 <div class="form-group">
                     <label for="ley_politica_habit">Ley Política Habitacional</label>
-                    <input type="number" class="form-control" name="ley_politica_habit" id="ley_politica_habit" required>
+                    <input type="number" step="0.01"  class="form-control" name="ley_politica_habit" id="ley_politica_habit" required>
                 </div>
                 <div class="form-group">
                     <label for="sindicato">Sindicato</label>
-                    <input type="number" class="form-control" name="sindicato" id="sindicato" required>
+                    <input type="number" step="0.01"  class="form-control" name="sindicato" id="sindicato" required>
                 </div>
                 <div class="form-group">
                     <label for="descuento_faltas">Descuento Faltas</label>
-                    <input type="number" class="form-control" name="descuento_faltas" id="descuento_faltas" required>
+                    <input type="number" step="0.01"  class="form-control" name="descuento_faltas" id="descuento_faltas" required>
                 </div>
                 <div class="form-group">
                     <label for="descuento_prestamos">Descuento Préstamos</label>
-                    <input type="number" class="form-control" name="descuento_prestamos" id="descuento_prestamos" required>
+                    <input type="number" step="0.01"  class="form-control" name="descuento_prestamos" id="descuento_prestamos" required>
                 </div>
                 <div class="form-group">
                     <label for="total_deducciones">Total Deducciones</label>
-                    <input type="number" class="form-control" name="total_deducciones" id="total_deducciones" required readonly>
+                    <input type="number" step="0.01"  class="form-control" name="total_deducciones" id="total_deducciones" required readonly>
                 </div>
             </div>
         </div>

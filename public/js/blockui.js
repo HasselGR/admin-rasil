@@ -33,16 +33,14 @@ $(document).ready(function() {
                         // Si no hay redirección, puedes mostrar un mensaje de éxito
                         alert(response.message || 'Operación exitosa');
                     }
-                } else {
-                    alert(response.message || 'Ocurrió un error, intenta nuevamente.');
                 }
             },
             error: function(xhr) {
                 // Manejo de errores
                 var errors = xhr.responseJSON.errors || {};
                 var errorMessage = xhr.responseJSON.message || 'Error inesperado.';
-
-                // Mostrar mensaje de error general
+                
+                console.log(errorMessage);
                 alert(errorMessage);
 
                 // Opcionalmente, puedes mostrar mensajes de error específicos para cada campo
