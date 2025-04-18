@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($cargamento->ingredientesCargamentos as $detalle)
+                    @foreach($cargamento->ingredientesCargamento as $detalle)
                         <tr>
                             <td>{{ $detalle->ingrediente->nombre_ingrediente }}</td>
                             <td>{{ $detalle->cantidad }}</td>

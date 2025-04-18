@@ -65,6 +65,7 @@ Route::resource('plato', PlatoController::class);
 Route::resource('medidas_platos', MedidasPlatoController::class);
 Route::resource('orden', OrdenController::class);
 Route::resource('orden_detalle', OrdenDetalleController::class);
+Route::get('ordenes/data', [OrdenController::class, 'getOrdenes'])->name('ordenes.data');  
 Route::get('/orden/{id}', [OrdenController::class, 'show'])->name('ordenes.show');
 
 //PARA RENTA DE LOCALES
@@ -84,7 +85,9 @@ Route::post('cuentas_por_cobrar/{id}/pago', [CuentasPorCobrarController::class, 
 
 
 //CARGAMENTOS PARA AÑADIR INGREDIENTES
+Route::get('cargamentos/data', [CargamentosController::class, 'getCargamentos'])->name('cargamentos.data');
 Route::resource('cargamentos', CargamentosController::class);
+
 
 
 // Nueva ruta para ver asignaciones y deducciones

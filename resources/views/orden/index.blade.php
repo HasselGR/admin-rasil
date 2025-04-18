@@ -23,34 +23,33 @@
         </ul>
     </div>
     @endif
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="ordenes-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Fecha</th>
                 <th>Hora</th>
-                <th>ID Factura</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($ordenes as $orden)
-            <tr>
-                <td>{{ $orden->id_orden }}</td>
-                <td>{{ $orden->fecha }}</td>
-                <td>{{ $orden->hora }}</td>
-                <td>{{ $orden->id_factura }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('orden.show', $orden->id_orden) }}">Mostrar</a>
-                    <a class="btn btn-primary" href="{{ route('orden.edit', $orden->id_orden) }}">Editar</a>
-                    <form action="{{ route('orden.destroy', $orden->id_orden) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
         </tbody>
     </table>
 @stop
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}">
+@stop
+
+@section('js')
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/ordenes_index.js') }}"></script>
+@endsection

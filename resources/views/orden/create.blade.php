@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <button type="button" id="add-detalle" class="btn btn-success mb-3">Añadir Plato</button>
+        <button type="button" id="add-detalle" class="btn btn-success">Añadir Plato</button>
 
         <button type="submit" class="btn btn-primary">Guardar Orden</button>
     </form>

@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <button type="button" id="add-detalle" class="btn btn-success mb-3">Añadir Ingrediente</button>
+        <button type="button" id="add-detalle" class="btn btn-success">Añadir Ingrediente</button>
 
         <button type="submit" class="btn btn-primary">Guardar Cargamento</button>
     </form>

@@ -7,6 +7,7 @@ use App\Models\Ingrediente;
 use App\Models\IngredienteCargamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class CargamentosController extends Controller
 {
@@ -22,6 +23,29 @@ class CargamentosController extends Controller
     {
         $ingredientes = Ingrediente::all(); // Traer los ingredientes para usarlos en el formulario
         return view('cargamentos.create', compact('ingredientes'));
+    }
+
+    public function getCargamentos(Request $request){
+
+        if ($request->ajax()) {
+        $cargamentos = Cargamento::select([
+            'id_cargamento',
+            'fecha',
+            'nro_factura',
+        ]);
+        
+        return DataTables::of($cargamentos)
+            ->addColumn('acciones', function ($cargamento) {
+                
+                return '
+                    <a class="btn btn-info" href="'.route('cargamentos.show', $cargamento->id_cargamento).'">Mostrar</a>';
+            })
+            ->rawColumns(['acciones'])
+            
+            ->make(true);
+        }
+
+        return abort(404);
     }
 
     // Guardar un nuevo cargamento
@@ -60,7 +84,7 @@ class CargamentosController extends Controller
     // Mostrar un cargamento específico
     public function show($id)
     {
-        $cargamento = Cargamento::find($id);
+        $cargamento = Cargamento::with('ingredientesCargamento')->findOrFail($id);
         return view('cargamentos.show', compact('cargamento'));
     }
 

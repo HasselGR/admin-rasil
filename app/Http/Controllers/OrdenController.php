@@ -9,7 +9,7 @@ use App\Models\MedidasPlato;
 use App\Models\OrdenDetalle;
 use App\Models\Plato;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\DataTables\DataTables;
 
 class OrdenController extends Controller
 {
@@ -17,6 +17,28 @@ class OrdenController extends Controller
     {
         $ordenes = Orden::all();
         return view('orden.index', compact('ordenes'));
+    }
+
+    public function getOrdenes(Request $request)
+    {
+        if ($request->ajax()) {
+            $ordenes = Orden::select([
+                'id_orden',
+                'fecha',
+                'hora',
+            ]);
+            
+            return DataTables::of($ordenes)
+                ->addColumn('acciones', function ($orden) {
+                    return '
+                        <a class="btn btn-info" href="'.route('orden.show', $orden->id_orden).'">Mostrar</a>';
+                })
+                ->rawColumns(['acciones'])
+                
+                ->make(true);
+        }
+
+        return abort(404);
     }
 
     public function create()

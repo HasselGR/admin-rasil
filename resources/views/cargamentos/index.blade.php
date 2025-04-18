@@ -7,13 +7,14 @@
 @stop
 
 @section('content')
+    <a href="{{ route('cargamentos.create') }}" class="btn btn-primary mb-3">Crear Cargamento</a>
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             {{ $message }}
         </div>
     @endif
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="cargamentos-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -23,29 +24,23 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($cargamentos as $cargamento)
-                <tr>
-                    <td>{{ $cargamento->id_cargamento }}</td>
-                    <td>{{ $cargamento->fecha }}</td>
-                    <td>{{ $cargamento->nro_factura }}</td>
-                    <td>
-                        <a href="{{ route('cargamentos.show', $cargamento->id_cargamento) }}" class="btn btn-info">Ver</a>
-                        <form action="{{ route('cargamentos.destroy', $cargamento->id_cargamento) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cargamento?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
         </tbody>
     </table>
 @stop
 
 @section('css')
-    {{-- Agregar estilos adicionales si los hay --}}
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}">
 @stop
 
 @section('js')
-    <script> console.log('Página de lista de cargamentos cargada.'); </script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/cargamentos_index.js') }}"></script>
 @stop
