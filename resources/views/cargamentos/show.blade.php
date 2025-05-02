@@ -27,6 +27,7 @@
                     <tr>
                         <th>Ingrediente</th>
                         <th>Cantidad</th>
+                        <th>Unidad de Medida</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ $detalle->ingrediente->nombre_ingrediente }}</td>
                             <td>{{ $detalle->cantidad }}</td>
+                            <td>{{ $detalle->ingrediente->unidadMedida->nombre_unidad  }}</td>
                         </tr>
                     @endforeach
                 </tbody>
