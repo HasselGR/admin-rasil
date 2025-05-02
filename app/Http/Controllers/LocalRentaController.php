@@ -18,7 +18,7 @@ class LocalRentaController extends Controller
                 ->addColumn('acciones', function ($local) {
                     return '
                         <a href="'.route('locales.edit', $local->id_local).'" class="btn btn-primary">Editar</a>
-                        <form action="'.route('locales.destroy', $local->id_local).'" method="POST" style="display:inline-block;">
+                        <form action="'.route('locales.destroy', $local->id_local).'" method="POST" style="display:inline-block;" class="form-eliminar">
                             '.csrf_field().'
                             '.method_field('DELETE').'
                             <button type="submit" class="btn btn-danger">Eliminar</button>

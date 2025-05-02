@@ -7,15 +7,33 @@ use App\Models\Plato;
 use App\Models\Ingrediente;
 use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class MedidasPlatoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $medidasPlatos = MedidasPlato::with(['plato', 'ingrediente', 'unidadMedida'])->select(['id_medida_plato', 'id_plato', 'id_ingrediente', 'unidad_medida', 'cantidad']);
+
+            return DataTables::of($medidasPlatos)
+                ->addColumn('acciones', function ($medidaPlato) {
+                    return '
+                        <a href="' . route('medidas_platos.edit', $medidaPlato->id_medida_plato) . '" class="btn btn-primary">Editar</a>
+                        <form action="' . route('medidas_platos.destroy', $medidaPlato->id_medida_plato) . '" method="POST" style="display:inline-block;" class="form-eliminar">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
     {
         $medidasPlatos = MedidasPlato::with(['plato', 'ingrediente', 'unidadMedida'])->get();
         return view('medidas_platos.index', compact('medidasPlatos'));
     }
-
+}
     public function create()
     {
         $platos = Plato::all();

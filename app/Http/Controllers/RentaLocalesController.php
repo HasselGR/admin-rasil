@@ -7,14 +7,32 @@ use App\Models\LocalRenta;
 use App\Models\ClienteRenta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\DataTables\DataTables;
 
 class RentaLocalesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $rentas = RentaLocales::with(['local', 'cliente'])->select(['id_renta', 'id_local', 'id_cliente', 'fecha', 'concepto', 'forma_pago', 'haber', 'retencion_iva', 'retencion_isrf']);
+
+            return DataTables::of($rentas)
+                ->addColumn('acciones', function ($renta) {
+                    return '
+                        <a href="' . route('renta_locales.edit', $renta->id_renta) . '" class="btn btn-primary">Editar</a>
+                        <form action="' . route('renta_locales.destroy', $renta->id_renta) . '" method="POST" style="display:inline-block;" class="form-eliminar">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
     {
         $rentas = RentaLocales::with(['local', 'cliente'])->get();
         return view('rentas.index', compact('rentas'));
+    }
     }
 
     public function create()

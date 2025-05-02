@@ -18,10 +18,10 @@ class ClienteRentaController extends Controller
                 ->addColumn('acciones', function ($cliente) {
                     return '
                         <a href="'.route('clientes_renta.edit', $cliente->id_cliente).'" class="btn btn-primary">Editar</a>
-                        <form action="'.route('clientes_renta.destroy', $cliente->id_cliente).'" method="POST" style="display:inline-block;">
+                        <form action="'.route('clientes_renta.destroy', $cliente->id_cliente).'" method="POST" style="display:inline-block;" " class="form-eliminar" >
                             '.csrf_field().'
                             '.method_field('DELETE').'
-                            <button type="submit" class="btn btn-danger" onclick="return confirm(\'¿Estás seguro de eliminar este cliente?\')">Eliminar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>';
                 })
                 ->rawColumns(['acciones'])

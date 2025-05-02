@@ -17,19 +17,21 @@
         </div>
         <div class="form-group">
             <label for="cedula_identidad">Cédula de Identidad</label>
-            <input type="text" class="form-control" name="cedula_identidad" required>
+            <input type="text" class="form-control" name="cedula_identidad" pattern="^[VEJ]-(\d{7,9}|\d{1,3}(?:\.\d{3})+)$" placeholder="V o E o J - Número de Cédula"  minlength="8" maxlength="12"
+            oninvalid="this.setCustomValidity('Formato inválido. Use V-, E- o J- seguido de números. Ej: V-12345678')" oninput="this.setCustomValidity('')"
+            required>
         </div>
         <div class="form-group">
             <label for="cod_contrato">Código de Contrato</label>
-            <input type="text" class="form-control" name="cod_contrato" required>
+            <input type="text" class="form-control" pattern="\d*" placeholder="Número de Contrato" name="cod_contrato" minlength="1" maxlength="8" required>
         </div>
         <div class="form-group">
             <label for="salario_gobierno">Salario Gobierno</label>
-            <input type="number" min="0" class="form-control" name="salario_gobierno" required>
+            <input type="text" min="0" class="form-control" name="salario_gobierno" pattern="\d*" placeholder="Cantidad Numérica en Bs."  maxlength="12" required>
         </div>
         <div class="form-group">
             <label for="salario_empresa">Salario Empresa</label>
-            <input type="number" min="0"  class="form-control" name="salario_empresa" required>
+            <input type="text" min="0"  class="form-control" name="salario_empresa" pattern="\d*" placeholder="Cantidad Numérica en Bs." maxlength="12" required>
         </div>
         <button type="submit" class="w-25 btn btn-primary ml-auto">Guardar</button>
     </form>

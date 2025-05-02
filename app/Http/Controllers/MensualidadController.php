@@ -7,19 +7,36 @@ use App\Models\LocalRenta;
 use App\Models\ClienteRenta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\DataTables\DataTables;
 
 class MensualidadController extends Controller
 {
     /**
      * Muestra la lista de mensualidades.
      */
-    public function index()
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $mensualidades = Mensualidad::with(['local', 'cliente'])->select(['id_mensualidad', 'id_local', 'id_cliente', 'debe', 'descripcion', 'fecha']);
+
+            return DataTables::of($mensualidades)
+                ->addColumn('acciones', function ($mensualidad) {
+                    return '
+                        <a href="' . route('mensualidades.edit', $mensualidad->id_mensualidad) . '" class="btn btn-primary">Editar</a>
+                        <form action="' . route('mensualidades.destroy', $mensualidad->id_mensualidad) . '" method="POST" style="display:inline-block;" class="form-eliminar">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
     {
         $mensualidades = Mensualidad::with(['local', 'cliente'])->get();
         return view('mensualidades.index', compact('mensualidades'));
     }
-
+    }
     /**
      * Muestra el formulario para crear una nueva mensualidad.
      */

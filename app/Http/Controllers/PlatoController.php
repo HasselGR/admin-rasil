@@ -4,15 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Plato;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PlatoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $platos = Plato::all();
-        return view('plato.index', compact('platos'));
-    }
+        if ($request->ajax()) {
+            $platos = Plato::select(['id_plato', 'nombre_plato', 'costo', 'descripcion']);
 
+            return DataTables::of($platos)
+                ->addColumn('acciones', function ($plato) {
+                    return '
+                        <a href="' . route('plato.show', $plato->id_plato) . '" class="btn btn-info">Mostrar</a>
+                        <a href="' . route('plato.edit', $plato->id_plato) . '" class="btn btn-primary">Editar</a>
+                        <form action="' . route('plato.destroy', $plato->id_plato) . '" method="POST" style="display:inline-block;" class="form-eliminar">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
+
+            
+            {
+                $platos = Plato::all();
+                return view('plato.index', compact('platos'));
+            }
+    }
     public function create()
     {
         return view('plato.create');

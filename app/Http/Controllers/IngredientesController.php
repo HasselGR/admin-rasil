@@ -23,7 +23,7 @@ class IngredientesController extends Controller
                     return '
                         <a href="'.route('ingredientes.show', $ingrediente->id_ingrediente).'" class="btn btn-info">Mostrar</a>
                         <a href="'.route('ingredientes.edit', $ingrediente->id_ingrediente).'" class="btn btn-primary">Editar</a>
-                        <form action="'.route('ingredientes.destroy', $ingrediente->id_ingrediente).'" method="POST" style="display:inline-block;">
+                        <form action="'.route('ingredientes.destroy', $ingrediente->id_ingrediente).'" method="POST" style="display:inline-block;" class="form-eliminar">
                             '.csrf_field().'
                             '.method_field('DELETE').'
                             <button type="submit" class="btn btn-danger">Eliminar</button>

@@ -37,7 +37,7 @@ class NominaEmpleadoController extends Controller
                         <a class="btn btn-info" href="'.route('nomina-empleados.show', $empleado->id_empleado).'">Mostrar</a>
                         <a class="btn btn-primary" href="'.route('nomina-empleados.edit', $empleado->id_empleado).'">Editar</a>
                         <a class="btn btn-warning" href="'.route('nomina-empleados.horas', $empleado->id_empleado).'">Ver Asignaciones y Deducciones</a>
-                        <form action="'.route('nomina-empleados.destroy', $empleado->id_empleado).'" method="POST" style="display:inline-block;">
+                        <form action="'.route('nomina-empleados.destroy', $empleado->id_empleado).'" method="POST" style="display:inline-block;" class="form-eliminar" >
                             '.csrf_field().'
                             '.method_field('DELETE').'
                             <button type="submit" class="btn btn-danger">Eliminar</button>

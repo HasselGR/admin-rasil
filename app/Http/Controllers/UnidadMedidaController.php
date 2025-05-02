@@ -4,13 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
-
+ use Yajra\DataTables\DataTables;
 class UnidadMedidaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $unidadMedidas = UnidadMedida::all();
-        return view('unidad_medida.index', compact('unidadMedidas'));
+        if ($request->ajax()) {
+            $unidadMedidas = UnidadMedida::select(['id_unidad_medida', 'nombre_unidad']);
+
+            return DataTables::of($unidadMedidas)
+                ->addColumn('acciones', function ($unidadMedida) {
+                    return '
+                        <a href="'.route('unidad_medida.show', $unidadMedida->id_unidad_medida).'" class="btn btn-info">Mostrar</a>
+                        <a href="'.route('unidad_medida.edit', $unidadMedida->id_unidad_medida).'" class="btn btn-primary">Editar</a>
+                        <form action="'.route('unidad_medida.destroy', $unidadMedida->id_unidad_medida).'" method="POST" style="display:inline-block;" class="form-eliminar">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>';
+                })
+                ->rawColumns(['acciones'])
+                ->make(true);
+        }
+        return view('unidad_medida.index');
     }
 
     public function create()
