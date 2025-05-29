@@ -314,7 +314,7 @@ return [
             'icon' => 'fas fa-fw fa-users',
         ],
         [
-            'text' => 'Asignar Horas',
+            'text' => 'Asignar Salarios',
             'url' => '/nomina-empleados/asignar-horas',
             'icon' => 'fas fa-fw fa-clock',
         ],
@@ -355,14 +355,14 @@ return [
         // Sección de Restaurante/Inventario
         ['header' => 'Restaurante / Inventario'],
         [
-            'text' => 'Ingredientes',
-            'url' => '/ingredientes',
-            'icon' => 'fas fa-fw fa-carrot',
-        ],
-        [
             'text' => 'Unidades de Medida',
             'url' => '/unidad_medida',
             'icon' => 'fas fa-fw fa-balance-scale',
+        ],
+        [
+            'text' => 'Ingredientes',
+            'url' => '/ingredientes',
+            'icon' => 'fas fa-fw fa-carrot',
         ],
         [
             'text' => 'Platos',
@@ -370,14 +370,14 @@ return [
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [
-            'text' => 'Órdenes',
-            'url' => '/orden',
-            'icon' => 'fas fa-fw fa-concierge-bell',
-        ],
-        [
             'text' => 'Medidas de Platos',
             'url' => '/medidas_platos',
             'icon' => 'fas fa-fw fa-ruler',
+        ],
+        [
+            'text' => 'Órdenes',
+            'url' => '/orden',
+            'icon' => 'fas fa-fw fa-concierge-bell',
         ],
         [
             'text' => 'Cargamentos',
