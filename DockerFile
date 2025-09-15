@@ -7,6 +7,9 @@ WORKDIR /var/www/html
 # Copia TODO el proyecto primero (incluye artisan)
 COPY . .
 
+RUN ls -l /var/www/html
+
+
 # Instala dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
