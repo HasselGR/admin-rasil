@@ -1,0 +1,29 @@
+# Usa una imagen que ya trae nginx + php-fpm y /start.sh
+FROM richarvey/nginx-php-fpm:latest
+
+USER root
+
+# Instala herramientas necesarias (ajusta si usas apt o apk según la imagen)
+RUN apk update && apk add --no-cache git npm nodejs
+
+WORKDIR /var/www/html
+
+# Copia todo
+COPY . /var/www/html
+
+# Variables para que /start.sh ejecute scripts de despliegue (ver scripts/)
+ENV SKIP_COMPOSER=1
+ENV WEBROOT=/var/www/html/public
+ENV PHP_ERRORS_STDERR=1
+ENV RUN_SCRIPTS=1
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+# Dar permisos mínimos para que www-data pueda escribir en storage y cache
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage bootstrap/cache
+
+# Exponer el puerto que usa la imagen (si aplica)
+EXPOSE 80
+
+# /start.sh viene incluido en la imagen y ejecutará los scripts en scripts/
+CMD ["/start.sh"]
