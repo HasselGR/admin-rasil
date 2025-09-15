@@ -1,22 +1,20 @@
-# Imagen base PHP + Nginx
+# Imagen base con PHP + Nginx
 FROM richarvey/nginx-php-fpm:latest
 
-# Establece directorio de trabajo
+# Establece el directorio de trabajo
 WORKDIR /var/www/html
 
-# Copia composer.json y composer.lock primero (para cache)
-COPY composer.json composer.lock ./
+# Copia TODO el proyecto Laravel
+COPY . .
 
 # Indica a la imagen base que use /public como webroot
 ENV WEBROOT /var/www/html/public
 
-# Instala dependencias PHP (sin plugins root)
+# Instala dependencias PHP
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
-# Ahora copia el resto del proyecto
-COPY . .
-
-# Ajusta permisos para Laravel
+# Ajusta permisos de Laravel
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R 775 storage bootstrap/cache
+
