@@ -1,7 +1,7 @@
 # Admin-Rasil
 
 **Repositorio:** https://github.com/HasselGR/admin-rasil  
-**Estado del repo (verificado):** público. :contentReference[oaicite:1]{index=1}
+
 
 ---
 
