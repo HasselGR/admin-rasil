@@ -1,19 +1,15 @@
 FROM richarvey/nginx-php-fpm:latest
 
-# Instalar Node/NPM si lo necesitas para compilar assets
 RUN apk update && apk add --no-cache git npm nodejs
 
 WORKDIR /var/www/html
 
-# Copia primero composer.json y composer.lock para aprovechar la cache
-COPY composer.json composer.lock ./
+# Copia TODO el proyecto primero (incluye artisan)
+COPY . .
 
 # Instala dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Copia el resto del proyecto
-COPY . .
-
-# Ajusta permisos para storage y cache
+# Ajusta permisos
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
