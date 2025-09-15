@@ -1,18 +1,25 @@
+# Imagen base con PHP + Nginx
 FROM richarvey/nginx-php-fpm:latest
 
-RUN apk update && apk add --no-cache git npm nodejs
-
+# Establece directorio de trabajo dentro del contenedor
 WORKDIR /var/www/html
 
-# Copia TODO el proyecto primero (incluye artisan)
+# Copia todos los archivos de tu proyecto Laravel al contenedor
+# (asegúrate de que artisan, public/, vendor/ no estén ignorados en .dockerignore)
 COPY . .
 
-RUN ls -l /var/www/html
-
+# Diagnóstico: lista los archivos copiados
+RUN echo "===> Contenido de /var/www/html" && ls -la /var/www/html
+RUN echo "===> Contenido de /var/www/html/public" && ls -la /var/www/html/public
 
 # Instala dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Ajusta permisos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+# Ajusta permisos para Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# (Opcional) Genera clave de aplicación si no tienes APP_KEY en .env
+# RUN php artisan key:generate
+
+# La imagen base ya tiene CMD que arranca nginx + php-fpm, no necesitas añadir más
