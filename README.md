@@ -29,7 +29,6 @@ Admin-Rasil es una aplicación web desarrollada con Laravel diseñada para centr
 - **Testing / Calidad:** incluye pruebas unitarias e integración documentadas en la tesis (pruebas de nómina, libros, renta, cuentas por cobrar).
 ---
 
----
 
 ## Requisitos y preparación (local)
 Requisitos mínimos (sugeridos):
