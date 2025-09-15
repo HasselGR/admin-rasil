@@ -1,25 +1,22 @@
-# Imagen base con PHP + Nginx
+# Imagen base PHP + Nginx
 FROM richarvey/nginx-php-fpm:latest
 
-# Establece directorio de trabajo dentro del contenedor
+# Establece directorio de trabajo
 WORKDIR /var/www/html
 
-# Copia todos los archivos de tu proyecto Laravel al contenedor
-# (asegúrate de que artisan, public/, vendor/ no estén ignorados en .dockerignore)
+# Copia composer.json y composer.lock primero (para cache)
+COPY composer.json composer.lock ./
+
+# Indica a la imagen base que use /public como webroot
+ENV WEBROOT /var/www/html/public
+
+# Instala dependencias PHP (sin plugins root)
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN composer install --no-dev --no-interaction --optimize-autoloader
+
+# Ahora copia el resto del proyecto
 COPY . .
 
-# Diagnóstico: lista los archivos copiados
-RUN echo "===> Contenido de /var/www/html" && ls -la /var/www/html
-RUN echo "===> Contenido de /var/www/html/public" && ls -la /var/www/html/public
-
-# Instala dependencias PHP
-RUN composer install --no-dev --optimize-autoloader
-
 # Ajusta permisos para Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
-    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# (Opcional) Genera clave de aplicación si no tienes APP_KEY en .env
-# RUN php artisan key:generate
-
-# La imagen base ya tiene CMD que arranca nginx + php-fpm, no necesitas añadir más
+RUN chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R 775 storage bootstrap/cache
