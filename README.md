@@ -28,3 +28,27 @@ Admin-Rasil es una aplicación web desarrollada con Laravel diseñada para centr
 - **Vistas / Frontend:** Blade (templating), Bootstrap y AdminLTE para UI administrativa. 
 - **Testing / Calidad:** incluye pruebas unitarias e integración documentadas en la tesis (pruebas de nómina, libros, renta, cuentas por cobrar).
 ---
+
+---
+
+## Requisitos y preparación (local)
+Requisitos mínimos (sugeridos):
+- PHP 8.x compatible con la versión de Laravel usada
+- Composer
+- PostgreSQL (o la BD que defina `.env`)
+- Node.js + npm (para assets con Vite / Mix)
+- Opcional: Redis (cache/queue) y Supervisor para workers
+
+Instalación local típica:
+```bash
+git clone https://github.com/HasselGR/admin-rasil.git
+cd admin-rasil
+composer install
+cp .env.example .env
+# editar .env (DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD, APP_URL, MAIL_*)
+php artisan key:generate
+php artisan migrate --seed
+npm install
+npm run build   # o npm run dev para desarrollo
+php artisan storage:link
+php artisan serve --host=0.0.0.0 --port=8000
