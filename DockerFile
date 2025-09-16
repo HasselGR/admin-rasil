@@ -1,26 +1,29 @@
-# Imagen base que ya trae PHP-FPM, Composer y Nginx
-FROM richarvey/nginx-php-fpm:latest
+# Usa PHP con Apache
+FROM php:8.2-apache
 
-# Establecer el directorio de trabajo
+# Instala dependencias necesarias para Laravel
+RUN apt-get update && apt-get install -y \
+    libzip-dev unzip git curl \
+    && docker-php-ext-install pdo pdo_mysql zip \
+    && a2enmod rewrite
+
+# Copia composer desde su imagen oficial
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Establece el directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar primero los archivos de composer para aprovechar cache
-COPY composer.json composer.lock ./
-
-# Instalar dependencias de PHP (sin dev para producción)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
-
-# Ahora copiar todo tu proyecto Laravel
+# Copia todos los archivos del proyecto al contenedor
 COPY . .
 
-# Dar permisos a storage y bootstrap/cache para que Laravel pueda escribir
-RUN chown -R nginx:nginx /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+# Instala dependencias de Laravel
+RUN composer install --no-dev --optimize-autoloader
 
-# Variables de entorno: APP_KEY, APP_ENV, DB_* se configuran en Render, no aquí.
-ENV APP_ENV=production
+# Ajusta permisos para storage y bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exponer el puerto 80 (Nginx ya sirve /public)
+# Expone el puerto 80
 EXPOSE 80
 
-# El contenedor se arranca automáticamente con Nginx+PHP-FPM gracias a la imagen base
+# Comando por defecto (el apache de php ya arranca)
+CMD ["apache2-foreground"]
