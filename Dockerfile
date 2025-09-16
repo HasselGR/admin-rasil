@@ -51,9 +51,20 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # -------------------------
+# Install Node.js for Vite build
+# -------------------------
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# -------------------------
 # Instalar dependencias de Laravel
 # -------------------------
 RUN composer install --no-dev --optimize-autoloader --prefer-dist
+
+# -------------------------
+# Build frontend assets
+# -------------------------
+RUN npm ci --only=production && npm run build
 
 # -------------------------
 # Configurar DocumentRoot y Apache para Laravel
