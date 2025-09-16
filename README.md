@@ -11,14 +11,15 @@ Admin-Rasil es una aplicación web desarrollada con Laravel diseñada para centr
 ---
 
 ## Características principales
-- Gestión completa de **nómina**: agregar, editar, borrar empleados; registrar pagos, asignaciones y deducciones; cálculo de pagos por quincena.   
-- Gestión de **quincenas** y periodos (quincenalmente) como unidad temporal para muchas transacciones (pagos, libros).
-- **Libro de Compras y Ventas**: añadir registros, consultar por periodo y generar reportes filtrados por quincena. 
-- **Inventario** de insumos y gestión de comedor: unidades de medida, ingredientes, platos (relación muchos-a-muchos), cargos por órdenes y descuentos automáticos de inventario; gestión de cargamentos. 
-- **Renta de locales**: crear/editar locales, asignar clientes, crear registros de cobros y pagos (mensualidades).   
-- **Clientes y Cuentas por cobrar**: CRUD de clientes, creación/registro y conciliación de cuentas por cobrar, marcación como “pagado” y generación de reportes.   
-- Búsqueda y filtros por periodo/quincena para facilitar auditoría y consultas históricas. 
+- Gestión completa de **nómina**: agregar, editar, borrar empleados; registrar pagos, asignaciones y deducciones; cálculo de pagos por quincena. ![Dashboard](screenshots/capture_dashboard.png)
+   
+- Gestión de **quincenas**, **nómina de empleados** y periodos (quincenalmente) como unidad temporal para muchas transacciones (pagos, libros). ![Nomina](screenshots/capture_nomina.png) ![Salarios](screenshots/capture_salarios.png)
+- **Libro de Compras y Ventas**: añadir registros, consultar por periodo y generar reportes filtrados por quincena. ![Quincenas](screenshots/dashboard_compras.png) ![Añadir](/screenshots/capture_librocombra.png)
+- **Inventario Referencial** de insumos y gestión de comedor: unidades de medida, ingredientes, platos (relación muchos-a-muchos), cargos por órdenes y descuentos automáticos de inventario; gestión de cargamentos. ![Inventario](screenshots/dashboard_ingredientes.png)  
+- **Clientes y Cuentas por cobrar**: CRUD de clientes, creación/registro y conciliación de cuentas por cobrar, marcación como “pagado” y generación de reportes. ![Inventario](screenshots/dashboard_clientes.png) ![Cuentas](screenshots/dashboard_cuentas_cobrar.png)     
+- Búsqueda y filtros por periodo/quincena para facilitar auditoría y consultas históricas. ![Resumén](screenshots/resumen_contabilidad.png)  
 - Interfaz basada en plantillas y componentes pensados para administración (Blade + AdminLTE / Bootstrap).
+- Base de datos **relacional** lista para migrar y adaptar a nuevos ambientes a traves de comandos de lineas de interfaz (CLI), con relaciones bien definidas en sus modelos para fácil acceso.
 
 ---
 
