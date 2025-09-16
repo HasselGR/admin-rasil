@@ -1,0 +1,28 @@
+/* Laravel Admin-Rasil Styles */
+/* AdminLTE handles most styling, this is just a placeholder */
+
+body {
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.admin-rasil-brand {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Custom styles for Hotel Rasil admin */
+.hotel-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.quincena-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
