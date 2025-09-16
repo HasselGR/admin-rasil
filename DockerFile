@@ -1,31 +1,38 @@
-# Imagen base con Nginx + PHP-FPM ya integrados
+# Imagen base con Nginx + PHP-FPM
 FROM richarvey/nginx-php-fpm:latest
 
-# Instalar extensiones necesarias para Laravel + PostgreSQL
+# Instalar extensiones necesarias
 RUN apk update && apk add --no-cache \
         postgresql-dev libpng-dev libjpeg-turbo-dev libzip-dev \
     && docker-php-ext-configure gd --with-jpeg \
-    && docker-php-ext-install pdo pdo_pgsql gd zip bcmath opcache
+    && docker-php-ext-install pdo pdo_pgsql gd zip bcmath
 
-# Instalar Composer (si no viene con la imagen)
+# Instalar Composer en la imagen
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Definir directorio de trabajo
+# Directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiamos primero composer.json / lock para aprovechar cache
+# Variables para Composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_NO_INTERACTION=1
+
+# Copiar sólo composer.json y composer.lock para aprovechar cache
 COPY composer.json composer.lock ./
 
-# Instalar dependencias PHP de Laravel sin dev
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+# Instalar dependencias sin scripts (porque artisan aún no existe)
+RUN composer install --no-dev --optimize-autoloader --no-progress --no-scripts
 
-# Copiar todo el proyecto al contenedor
+# Ahora sí copiar todo el proyecto
 COPY . .
 
-# Ajustar permisos para Laravel (storage y cache)
-RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
+# Ejecutar scripts de Laravel después de tener artisan disponible
+RUN php artisan package:discover --ansi
 
-# Puerto para Render
+# Ajustar permisos de Laravel
+RUN chown -R nginx:nginx storage bootstrap/cache
+
+# Exponer el puerto
 EXPOSE 80
 
-# El CMD ya está definido en la imagen base (nginx + php-fpm)
+# El contenedor usa por defecto el CMD del richarvey/nginx-php-fpm
