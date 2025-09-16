@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: admin-rasil
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_NAME
+        value: Admin Rasil
+      - key: APP_URL
+        value: https://admin-rasil.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: LOG_LEVEL
+        value: error
+      - key: SESSION_ENCRYPT
+        value: true
+
+  - type: pgsql
+    name: admin-rasil-db
+    databaseName: admin_rasil
+    user: admin_rasil_user
+    plan: starter
